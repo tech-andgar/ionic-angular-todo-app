@@ -1,0 +1,7 @@
+{
+  "name": "Nequi TO-DO",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
