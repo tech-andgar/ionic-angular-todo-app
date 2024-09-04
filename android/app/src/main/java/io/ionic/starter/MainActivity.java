@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package me.techandgar.demo.nequi.todo;
 
 import com.getcapacitor.BridgeActivity;
 
