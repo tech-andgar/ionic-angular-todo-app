@@ -1,4 +1,4 @@
-package me.techandgar.demo.nequi.todo;
+package me.techandgar.demo.ionic.todo;
 
 import com.getcapacitor.BridgeActivity;
 

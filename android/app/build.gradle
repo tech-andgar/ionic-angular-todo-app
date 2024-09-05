@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "me.techandgar.demo.nequi.todo"
+    namespace "me.techandgar.demo.ionic.todo"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "me.techandgar.demo.nequi.todo"
+        applicationId "me.techandgar.demo.ionic.todo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
