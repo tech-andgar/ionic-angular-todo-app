@@ -1,0 +1,18 @@
+{
+  "HOME": {
+    "TITLE": "Home",
+    "WELCOME": "Welcome to our app!",
+    "TASKS": "Tasks",
+    "CATEGORIES": "Categories"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Settings",
+    "DARK_MODE": "Dark Mode",
+    "LANGUAGE": "Language"
+  },
+  "TODOS": {
+    "ADD": "Add Todo",
+    "DELETE": "Delete",
+    "COMPLETE": "Complete"
+  }
+}

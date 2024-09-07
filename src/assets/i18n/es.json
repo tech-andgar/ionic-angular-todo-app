@@ -1,0 +1,18 @@
+{
+  "HOME": {
+    "TITLE": "Inicio",
+    "WELCOME": "¡Bienvenido a nuestra aplicación!",
+    "TASKS": "Tareas",
+    "CATEGORIES": "Categorías"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Configuración",
+    "DARK_MODE": "Modo oscuro",
+    "LANGUAGE": "Idioma"
+  },
+  "TODOS": {
+    "ADD": "Agregar Tarea",
+    "DELETE": "Eliminar",
+    "COMPLETE": "Completar"
+  }
+}
