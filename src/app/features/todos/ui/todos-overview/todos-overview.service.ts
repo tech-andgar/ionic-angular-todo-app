@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { TodosRepository } from '../../todos_repository/todos_repository';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,6 +35,7 @@ export class TodosOverviewService {
   constructor(
     private todosRepository: TodosRepository,
     private toastController: ToastController,
+    private alertController: AlertController,
     private translateService: TranslateService
   ) { }
 
@@ -54,6 +55,29 @@ export class TodosOverviewService {
     const newTodo = todo.copyWith({ isCompleted });
     await this.todosRepository.saveTodo(newTodo);
     this.updateTodoInList(newTodo);
+  }
+
+
+  async confirmDelete(todo: Todo) {
+    const alert = await this.alertController.create({
+      header: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER').toPromise(),
+      message: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title }).toPromise(),
+      buttons: [
+        {
+          text: await this.translateService.get('COMMON.CANCEL').toPromise(),
+          role: 'cancel',
+        },
+        {
+          text: await this.translateService.get('COMMON.DELETE').toPromise(),
+          role: 'destructive',
+          handler: () => {
+            this.deleteTodo(todo);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async deleteTodo(todo: Todo) {

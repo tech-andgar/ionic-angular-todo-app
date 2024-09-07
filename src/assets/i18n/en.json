@@ -19,6 +19,8 @@
     "TODOS_OVERVIEW": {
     "TITLE": "Tasks",
     "EMPTY_TEXT": "No tasks yet. Add some!",
+    "TODO_DELETED_MESSAGE": "Task '{{title}}' deleted",
+    "UNDO_DELETION_BUTTON": "Undo",
     "FILTER": {
       "TITLE": "Filter Todos",
       "ALL": "All",

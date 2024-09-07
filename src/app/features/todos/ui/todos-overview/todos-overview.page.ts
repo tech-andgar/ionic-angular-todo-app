@@ -38,7 +38,7 @@ import { TodosOverviewOptionsButtonComponent } from '../component/todos-overview
           *ngFor="let todo of todosService.filteredTodos()"
           [todo]="todo"
           (toggleCompleted)="todosService.toggleTodoCompletion(todo, $event)"
-          (delete)="todosService.deleteTodo(todo)"
+          (delete)="todosService.confirmDelete(todo)"
           (edit)="navigateToEditTodo(todo)"
         ></app-todo-list-item>
       </ion-list>

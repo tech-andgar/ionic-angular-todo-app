@@ -1,6 +1,8 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { TodosRepository } from '../../todos_repository/todos_repository';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum EditTodoStatus { initial, loading, success, failure }
 
@@ -23,7 +25,11 @@ export class EditTodoService {
     [EditTodoStatus.loading, EditTodoStatus.success].includes(this.statusSignal())
   );
 
-  constructor(private todosRepository: TodosRepository) { }
+  constructor(
+    private todosRepository: TodosRepository,
+    private alertController: AlertController,
+    private translateService: TranslateService
+  ) { }
 
   initializeTodo(todo: Todo | null) {
     this.statusSignal.set(EditTodoStatus.initial);
@@ -56,5 +62,35 @@ export class EditTodoService {
     } catch (e) {
       this.statusSignal.set(EditTodoStatus.failure);
     }
+  }
+
+  async confirmDelete(todo: Todo) {
+    this.statusSignal.set(EditTodoStatus.loading);
+    return new Promise(async (resolve) => {
+      const alert = await this.alertController.create({
+        header: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER').toPromise(),
+        message: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title }).toPromise(),
+        buttons: [
+          {
+            text: await this.translateService.get('COMMON.CANCEL').toPromise(),
+            role: 'cancel',
+            handler: () => {
+              this.statusSignal.set(EditTodoStatus.initial);
+              resolve(false);
+            }
+          },
+          {
+            text: await this.translateService.get('COMMON.DELETE').toPromise(),
+            role: 'destructive',
+            handler: () => {
+              this.todosRepository.deleteTodo(todo.id);
+              this.statusSignal.set(EditTodoStatus.success);
+              resolve(true);
+            }
+          }
+        ]
+      });
+      alert.present();
+    });
   }
 }

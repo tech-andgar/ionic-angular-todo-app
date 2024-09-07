@@ -7,7 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EditTodoService, EditTodoStatus } from './edit-todo.service';
 import { TodosRepository } from '../../todos_repository/todos_repository';
 import { addIcons } from 'ionicons';
-import { checkmark } from 'ionicons/icons';
+import { checkmark, trash } from 'ionicons/icons';
+import { Todo } from '../../todosAPI/models/todo';
 
 @Component({
   selector: 'app-edit-todo',
@@ -24,48 +25,71 @@ import { checkmark } from 'ionicons/icons';
     </ion-header>
 
     <ion-content class="ion-padding">
-      <form (ngSubmit)="onSubmit()">
+      <form>
         <ion-item>
           <ion-label position="floating">{{ 'EDIT_TODO.TITLE_LABEL' | translate }}</ion-label>
           <ion-input
-            #input
-            autofocus="true"
-            [disabled]="editTodoService.isLoadingOrSuccess()"
-            [value]="editTodoService.title()"
-            (ionChange)="onTitleChange($event)"
-            maxlength="50"
+          #input
+          autofocus="true"
+          [disabled]="editTodoService.isLoadingOrSuccess()"
+          [value]="editTodoService.title()"
+          (ionChange)="onTitleChange($event)"
+          maxlength="50"
           ></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">{{ 'EDIT_TODO.DESCRIPTION_LABEL' | translate }}</ion-label>
           <ion-textarea
-            [disabled]="editTodoService.isLoadingOrSuccess()"
-            [value]="editTodoService.description()"
-            (ionChange)="onDescriptionChange($event)"
-            maxlength="300"
-            rows="7"
+          [disabled]="editTodoService.isLoadingOrSuccess()"
+          [value]="editTodoService.description()"
+          (ionChange)="onDescriptionChange($event)"
+          maxlength="300"
+          rows="7"
           ></ion-textarea>
         </ion-item>
 
-        <ion-button
-          expand="block"
-          type="submit"
-          [disabled]="editTodoService.isLoadingOrSuccess()"
-          class="ion-margin-top"
-        >
-          <ion-spinner *ngIf="editTodoService.status() === EditTodoStatus.loading"></ion-spinner>
-          <ion-icon *ngIf="editTodoService.status() !== EditTodoStatus.loading" name="checkmark"></ion-icon>
-          {{ 'EDIT_TODO.SAVE_BUTTON' | translate }}
-        </ion-button>
-      </form>
-    </ion-content>
-  `,
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button
+              *ngIf="!editTodoService.isNewTodo()"
+              expand="block"
+              type="submit"
+              [disabled]="editTodoService.isLoadingOrSuccess()"
+              class="ion-margin-top"
+              color="danger"
+              (click)="onDelete()"
+              >
+              <ion-spinner *ngIf="editTodoService.status() === EditTodoStatus.loading"></ion-spinner>
+              <ion-icon *ngIf="editTodoService.status() !== EditTodoStatus.loading" name="trash"></ion-icon>
+              {{ 'COMMON.DELETE' | translate }}
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="editTodoService.isLoadingOrSuccess()"
+            class="ion-margin-top"
+            (click)="onSubmit()"
+            >
+            <ion-spinner *ngIf="editTodoService.status() === EditTodoStatus.loading"></ion-spinner>
+            <ion-icon *ngIf="editTodoService.status() !== EditTodoStatus.loading" name="checkmark"></ion-icon>
+            {{ 'EDIT_TODO.SAVE_BUTTON' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+`,
   standalone: true,
   imports: [IonicModule, FormsModule, TranslateModule, NgIf]
 })
 export class EditTodoPage implements OnInit, AfterViewInit {
   EditTodoStatus = EditTodoStatus;
+  todo: Todo | undefined;
 
   constructor(
     public editTodoService: EditTodoService,
@@ -73,7 +97,7 @@ export class EditTodoPage implements OnInit, AfterViewInit {
     private router: Router,
     private todosRepository: TodosRepository
   ) {
-    addIcons({ checkmark })
+    addIcons({ checkmark, trash });
   }
   @ViewChild('input') input!: IonInput;
 
@@ -85,6 +109,7 @@ export class EditTodoPage implements OnInit, AfterViewInit {
     const todoId = this.route.snapshot.paramMap.get('id');
     if (todoId) {
       this.todosRepository.getTodoById(todoId).subscribe(todo => {
+        this.todo = todo;
         this.editTodoService.initializeTodo(todo);
       });
     } else {
@@ -99,6 +124,13 @@ export class EditTodoPage implements OnInit, AfterViewInit {
 
   onDescriptionChange(event: CustomEvent) {
     this.editTodoService.setDescription(event.detail.value);
+  }
+
+  async onDelete() {
+    let result = await this.editTodoService.confirmDelete(this.todo!);
+    if (result && this.editTodoService.status() === EditTodoStatus.success) {
+      this.router.navigate(['/todos']);
+    }
   }
 
   async onSubmit() {

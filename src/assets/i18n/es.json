@@ -19,6 +19,8 @@
   "TODOS_OVERVIEW": {
     "TITLE": "Tareas",
     "EMPTY_TEXT": "Aún no hay tareas. ¡Añade algunas!",
+    "TODO_DELETED_MESSAGE": "Tarea '{{title}}' eliminada",
+    "UNDO_DELETION_BUTTON": "Deshacer",
     "FILTER": {
       "TITLE": "Filtro tareas",
       "ALL": "Todas",
