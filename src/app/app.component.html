@@ -1,23 +1,3 @@
 <ion-app>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>TO-DO</ion-title>
-      <app-settings-dropdown slot="end"></app-settings-dropdown>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ion-router-outlet></ion-router-outlet>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="tasks" routerLink="/tasks" routerLinkActive="tab-selected">
-          <ion-icon name="list-outline"></ion-icon>
-          <ion-label>{{ "HOME.TASKS" | translate }}</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="categories" routerLink="/categories" routerLinkActive="tab-selected">
-          <ion-icon name="folder-outline"></ion-icon>
-          <ion-label>{{ "HOME.CATEGORIES" | translate }}</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-content>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>

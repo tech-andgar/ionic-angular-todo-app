@@ -3,7 +3,8 @@
     "TITLE": "Home",
     "WELCOME": "Welcome to our app!",
     "TASKS": "Tasks",
-    "CATEGORIES": "Categories"
+    "CATEGORIES": "Categories",
+    "STATS": "Stats"
   },
   "SETTINGS": {
     "SETTINGS": "Settings",
