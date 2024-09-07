@@ -3,6 +3,7 @@ import { ToastController, AlertController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { TodosRepository } from '../../todos_repository/todos_repository';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 export enum TodosOverviewStatus { initial, loading, success, failure }
 export enum TodosViewFilter { all, activeOnly, completedOnly }
@@ -60,15 +61,15 @@ export class TodosOverviewService {
 
   async confirmDelete(todo: Todo) {
     const alert = await this.alertController.create({
-      header: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER').toPromise(),
-      message: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title }).toPromise(),
+      header: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER')),
+      message: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title })),
       buttons: [
         {
-          text: await this.translateService.get('COMMON.CANCEL').toPromise(),
+          text: await lastValueFrom(this.translateService.get('COMMON.CANCEL')),
           role: 'cancel',
         },
         {
-          text: await this.translateService.get('COMMON.DELETE').toPromise(),
+          text: await lastValueFrom(this.translateService.get('COMMON.DELETE')),
           role: 'destructive',
           handler: () => {
             this.deleteTodo(todo);
@@ -122,13 +123,13 @@ export class TodosOverviewService {
 
   private async showUndoToast(deletedTodo: Todo) {
     const toast = await this.toastController.create({
-      message: await this.translateService.get('TODOS_OVERVIEW.TODO_DELETED_MESSAGE', { title: deletedTodo.title }).toPromise(),
+      message: await lastValueFrom(this.translateService.get('TODOS_OVERVIEW.TODO_DELETED_MESSAGE', { title: deletedTodo.title })),
       duration: 3000,
       position: 'bottom',
       buttons: [
         {
           side: 'end',
-          text: await this.translateService.get('TODOS_OVERVIEW.UNDO_DELETION_BUTTON').toPromise(),
+          text: await lastValueFrom(this.translateService.get('TODOS_OVERVIEW.UNDO_DELETION_BUTTON')),
           handler: () => {
             this.undoDeleteTodo();
           }

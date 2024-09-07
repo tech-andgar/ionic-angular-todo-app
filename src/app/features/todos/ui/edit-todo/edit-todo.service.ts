@@ -68,11 +68,11 @@ export class EditTodoService {
     this.statusSignal.set(EditTodoStatus.loading);
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
-        header: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER').toPromise(),
-        message: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title }).toPromise(),
+        header: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER')),
+        message: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title })),
         buttons: [
           {
-            text: await this.translateService.get('COMMON.CANCEL').toPromise(),
+            text: await lastValueFrom(this.translateService.get('COMMON.CANCEL')),
             role: 'cancel',
             handler: () => {
               this.statusSignal.set(EditTodoStatus.initial);
@@ -80,7 +80,7 @@ export class EditTodoService {
             }
           },
           {
-            text: await this.translateService.get('COMMON.DELETE').toPromise(),
+            text: await lastValueFrom(this.translateService.get('COMMON.DELETE')),
             role: 'destructive',
             handler: () => {
               this.todosRepository.deleteTodo(todo.id);

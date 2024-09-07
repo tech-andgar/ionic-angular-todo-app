@@ -4,6 +4,7 @@ import { TodosOverviewService } from '../todos-overview/todos-overview.service';
 import { addIcons } from 'ionicons';
 import { ellipsisVertical } from 'ionicons/icons';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-todos-overview-options-button',
@@ -26,18 +27,18 @@ export class TodosOverviewOptionsButtonComponent {
 
   async presentOptionsActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: await this.translate.get('TODOS_OVERVIEW.OPTIONS.TITLE').toPromise(),
+      header: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.OPTIONS.TITLE')),
       buttons: [
         {
-          text: await this.translate.get('TODOS_OVERVIEW.OPTIONS.TOGGLE_ALL').toPromise(),
+          text: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.OPTIONS.TOGGLE_ALL')),
           handler: () => this.todosService.toggleAll()
         },
         {
-          text: await this.translate.get('TODOS_OVERVIEW.OPTIONS.CLEAR_COMPLETED').toPromise(),
+          text: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.OPTIONS.CLEAR_COMPLETED')),
           handler: () => this.todosService.clearCompleted()
         },
         {
-          text: await this.translate.get('COMMON.CANCEL').toPromise(),
+          text: await lastValueFrom(this.translate.get('COMMON.CANCEL')),
           role: 'cancel'
         }
       ]

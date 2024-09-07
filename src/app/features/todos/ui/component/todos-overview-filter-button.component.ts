@@ -4,6 +4,7 @@ import { TodosOverviewService, TodosViewFilter } from '../todos-overview/todos-o
 import { addIcons } from 'ionicons';
 import { filter } from 'ionicons/icons';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-todos-overview-filter-button',
@@ -26,22 +27,22 @@ export class TodosOverviewFilterButtonComponent {
 
   async presentFilterActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: await this.translate.get('TODOS_OVERVIEW.FILTER.TITLE').toPromise(),
+      header: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.FILTER.TITLE')),
       buttons: [
         {
-          text: await this.translate.get('TODOS_OVERVIEW.FILTER.ALL').toPromise(),
+          text: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.FILTER.ALL')),
           handler: () => this.todosService.setFilter(TodosViewFilter.all)
         },
         {
-          text: await this.translate.get('TODOS_OVERVIEW.FILTER.ACTIVE').toPromise(),
+          text: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.FILTER.ACTIVE')),
           handler: () => this.todosService.setFilter(TodosViewFilter.activeOnly)
         },
         {
-          text: await this.translate.get('TODOS_OVERVIEW.FILTER.COMPLETED').toPromise(),
+          text: await lastValueFrom(this.translate.get('TODOS_OVERVIEW.FILTER.COMPLETED')),
           handler: () => this.todosService.setFilter(TodosViewFilter.completedOnly)
         },
         {
-          text: await this.translate.get('COMMON.CANCEL').toPromise(),
+          text: await lastValueFrom(this.translate.get('COMMON.CANCEL')),
           role: 'cancel'
         }
       ]
