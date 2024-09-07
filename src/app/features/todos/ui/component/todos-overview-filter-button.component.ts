@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicModule, ActionSheetController } from '@ionic/angular';
-import { TodosOverviewService, TodosViewFilter } from '../todos-overview/todos-overview.service';
 import { addIcons } from 'ionicons';
 import { filter } from 'ionicons/icons';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
+import { TodosOverviewService } from '../todos-overview/todos-overview.service';
+import { TodosViewFilter } from '../../todos_repository/todos_repository';
 
 @Component({
   selector: 'app-todos-overview-filter-button',

@@ -122,7 +122,7 @@ export class EditTodoPage implements OnInit, AfterViewInit {
   }
 
   async onDelete() {
-    let result = await this.editTodoService.confirmDelete(this.todo!);
+    let result = await this.editTodoService.deleteTodo(this.todo!);
     if (result && this.editTodoService.status() === EditTodoStatus.success) {
       this.router.navigate(['/todos']);
     }
