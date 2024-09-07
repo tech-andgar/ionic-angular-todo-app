@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { addIcons } from 'ionicons';
 import { chevronForward, trash } from 'ionicons/icons';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -17,17 +18,20 @@ import { chevronForward, trash } from 'ionicons/icons';
         <ion-icon name="chevron-forward" slot="end"></ion-icon>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="delete.emit()">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-item-option color="danger" (click)="confirmDelete()" [attr.aria-label]="'TODO_LIST_ITEM.DELETE' | translate">
+          <ion-icon name="delete-task" slot="icon-only" name="trash" [style.color]="'#fff'" aria-hidden="true"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   `,
   standalone: true,
-  imports: [IonicModule,]
+  imports: [IonicModule, TranslateModule],
 })
 export class TodoListItemComponent {
-  constructor() {
+  constructor(
+    private alertController: AlertController,
+    private translateService: TranslateService
+  ) {
     addIcons({chevronForward, trash});
   }
 
@@ -35,4 +39,26 @@ export class TodoListItemComponent {
   @Output() toggleCompleted = new EventEmitter<boolean>();
   @Output() delete = new EventEmitter<void>();
   @Output() edit = new EventEmitter<void>();
+
+  async confirmDelete() {
+    const alert = await this.alertController.create({
+      header: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER').toPromise(),
+      message: await this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: this.todo.title }).toPromise(),
+      buttons: [
+        {
+          text: await this.translateService.get('COMMON.CANCEL').toPromise(),
+          role: 'cancel',
+        },
+        {
+          text: await this.translateService.get('COMMON.DELETE').toPromise(),
+          role: 'destructive',
+          handler: () => {
+            this.delete.emit();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

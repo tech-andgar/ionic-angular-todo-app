@@ -46,7 +46,13 @@
     "SAVE_BUTTON": "Save",
     "SAVE_BUTTON_TOOLTIP": "Save task"
   },
+  "TODO_LIST_ITEM": {
+    "DELETE": "Delete Task",
+    "DELETE_CONFIRM_HEADER": "Confirm Deletion",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the task '{{title}}'?"
+  },
   "COMMON": {
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "DELETE": "Delete"
   }
 }

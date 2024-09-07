@@ -46,7 +46,13 @@
     "SAVE_BUTTON": "Guardar",
     "SAVE_BUTTON_TOOLTIP": "Guardar tarea"
   },
+  "TODO_LIST_ITEM": {
+    "DELETE": "Eliminar Tarea",
+    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación",
+    "DELETE_CONFIRM_MESSAGE": "¿Estás seguro de que quieres eliminar la tarea '{{title}}'?"
+  },
   "COMMON": {
-    "CANCEL": "Cancelar"
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar"
   }
 }
