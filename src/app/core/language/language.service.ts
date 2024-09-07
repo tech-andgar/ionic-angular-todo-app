@@ -4,14 +4,14 @@ import { Storage } from '@ionic/storage-angular';
 import { Language, LanguageOption, SUPPORTED_LANGUAGES } from './model/language.model';
 
 // if browser lang not supported
-const defaultLanguage = 'en';
+const defaultLanguage = Language.English;
 
 // A service to manage the user's preferred language
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
-  private readonly STORAGE_KEY = 'preferredLanguage';
+  private readonly kStorageKey = '__preferred_language_key__';
   private _storage: Storage | null = null;
 
   constructor(
@@ -35,7 +35,7 @@ export class LanguageService {
     if (!this._storage) {
       await this.initializeLanguage();
     }
-    const storedLang = await this._storage?.get(this.STORAGE_KEY) as Language | null;
+    const storedLang = await this._storage?.get(this.kStorageKey) as Language | null;
     if (storedLang && this.isLanguageSupported(storedLang)) {
       return storedLang;
     }
@@ -47,12 +47,12 @@ export class LanguageService {
 
   async setLanguage(lang: Language) {
     if (this.isLanguageSupported(lang)) {
-      await this._storage?.set(this.STORAGE_KEY, lang);
+      await this._storage?.set(this.kStorageKey, lang);
       this.translate.use(lang);
     } else {
       console.warn(`Language ${lang} is not supported. Falling back to English.`);
-      await this._storage?.set(this.STORAGE_KEY, Language.English);
-      this.translate.use(Language.English);
+      await this._storage?.set(this.kStorageKey, defaultLanguage);
+      this.translate.use(defaultLanguage);
     }
   }
 

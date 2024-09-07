@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ThemeService {
-  private readonly THEME_DARK_KEY = 'themeDark';
+  private readonly kThemeDarkKey = '__theme_dark_key__';
 
   initializeTheme() {
     // const prefersDarkS = window.matchMedia('(prefers-color-scheme: dark)');
     // prefersDarkS.addEventListener('change',(e) => this.setAppTheme(e.matches ? 'dark' : 'light'));
 
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = localStorage.getItem(this.THEME_DARK_KEY) || (prefersDark ? 'dark' : 'light');
+    const theme = localStorage.getItem(this.kThemeDarkKey) || (prefersDark ? 'dark' : 'light');
     this.setAppTheme(theme);
   }
 
@@ -22,7 +22,7 @@ export class ThemeService {
 
   setAppTheme(theme: string) {
     document.body.classList.toggle('dark-theme', theme === 'dark');
-    localStorage.setItem(this.THEME_DARK_KEY, theme);
+    localStorage.setItem(this.kThemeDarkKey, theme);
   }
 
   isDarkMode() {
