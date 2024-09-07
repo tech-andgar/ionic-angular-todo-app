@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { TodosRepository } from '../../todos_repository/todos_repository';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 export enum EditTodoStatus { initial, loading, success, failure }
 
@@ -44,6 +45,10 @@ export class EditTodoService {
 
   setDescription(description: string) {
     this.descriptionSignal.set(description);
+  }
+
+  async getTodoById(todoId: string): Promise<Todo> {
+    return await lastValueFrom(this.todosRepository.getTodoById(todoId));
   }
 
   async submit() {

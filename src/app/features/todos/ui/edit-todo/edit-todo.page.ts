@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule, IonInput } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditTodoService, EditTodoStatus } from './edit-todo.service';
-import { TodosRepository } from '../../todos_repository/todos_repository';
 import { addIcons } from 'ionicons';
 import { checkmark, trash } from 'ionicons/icons';
 import { Todo } from '../../todosAPI/models/todo';
@@ -95,7 +94,6 @@ export class EditTodoPage implements OnInit, AfterViewInit {
     public editTodoService: EditTodoService,
     private route: ActivatedRoute,
     private router: Router,
-    private todosRepository: TodosRepository
   ) {
     addIcons({ checkmark, trash });
   }
@@ -105,17 +103,14 @@ export class EditTodoPage implements OnInit, AfterViewInit {
     this.input.setFocus();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const todoId = this.route.snapshot.paramMap.get('id');
     if (todoId) {
-      this.todosRepository.getTodoById(todoId).subscribe(todo => {
-        this.todo = todo;
-        this.editTodoService.initializeTodo(todo);
-      });
+      this.todo = await this.editTodoService.getTodoById(todoId);
+      this.editTodoService.initializeTodo(this.todo);
     } else {
       this.editTodoService.initializeTodo(null);
     }
-
   }
 
   onTitleChange(event: CustomEvent) {
