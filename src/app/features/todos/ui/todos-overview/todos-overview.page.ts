@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
 import { SettingsDropdownComponent } from "../../../../core/settings/settings-dropdown.component";
 import { Todo } from '../../todosAPI/models/todo';
 import { TodoListItemComponent } from '../component/todo-list-item.component';
 import { TodosOverviewFilterButtonComponent } from '../component/todos-overview-filter-button.component';
 import { TodosOverviewOptionsButtonComponent } from '../component/todos-overview-options-button.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todos-overview',
@@ -55,14 +55,15 @@ import { Router } from '@angular/router';
     TodosOverviewFilterButtonComponent,
     TodosOverviewOptionsButtonComponent,
     SettingsDropdownComponent
-]
+  ]
 })
 export class TodosOverviewPage implements OnInit {
+  TodosOverviewStatus = TodosOverviewStatus;
+
   constructor(
     public todosService: TodosOverviewService,
     private router: Router
   ) {}
-  TodosOverviewStatus = TodosOverviewStatus;
 
   ngOnInit() {
     this.todosService.loadTodos();

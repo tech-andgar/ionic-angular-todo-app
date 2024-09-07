@@ -20,6 +20,11 @@ export abstract class TodosApi {
    * If a todo with the same id already exists, it will be replaced.
    */
   abstract saveTodo(todo: Todo): Promise<void>;
+  /**
+   * Saves a todo.
+   * If a todo with the same id already exists, it will be replaced.
+   */
+  abstract saveTodoAt(todo: Todo, index: number | null): Promise<void>;
 
   /**
    * Deletes the todo with the given id.

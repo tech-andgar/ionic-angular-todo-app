@@ -33,6 +33,15 @@ export class TodosRepository {
   }
 
   /**
+   * Saves a todo with the position index
+   *
+* If a todo with the same id already exists, it will be replaced.
+   */
+  saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
+    return this.todosApi.saveTodoAt(todo, index);
+  }
+
+  /**
    * Deletes the todo with the given id.
    *
    * If no todo with the given id exists, a TodoNotFoundException is thrown.

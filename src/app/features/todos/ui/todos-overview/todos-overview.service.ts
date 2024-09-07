@@ -1,18 +1,19 @@
 import { Injectable, computed, signal } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { Todo } from '../../todosAPI/models/todo';
 import { TodosRepository } from '../../todos_repository/todos_repository';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum TodosOverviewStatus { initial, loading, success, failure }
 export enum TodosViewFilter { all, activeOnly, completedOnly }
 
 @Injectable({ providedIn: 'root' })
 export class TodosOverviewService {
-  constructor(private todosRepository: TodosRepository) {}
-
   private statusSignal = signal<TodosOverviewStatus>(TodosOverviewStatus.initial);
   private todosSignal = signal<Todo[]>([]);
   private filterSignal = signal<TodosViewFilter>(TodosViewFilter.all);
   private lastDeletedTodoSignal = signal<Todo | null>(null);
+  private lastDeletedTodoIndexSignal = signal<number | null>(null);
 
   status = this.statusSignal.asReadonly();
   todos = this.todosSignal.asReadonly();
@@ -30,6 +31,12 @@ export class TodosOverviewService {
       }
     });
   });
+
+  constructor(
+    private todosRepository: TodosRepository,
+    private toastController: ToastController,
+    private translateService: TranslateService
+  ) { }
 
   async loadTodos() {
     this.statusSignal.set(TodosOverviewStatus.loading);
@@ -50,17 +57,27 @@ export class TodosOverviewService {
   }
 
   async deleteTodo(todo: Todo) {
-    this.lastDeletedTodoSignal.set(todo);
-    await this.todosRepository.deleteTodo(todo.id);
-    this.removeTodoFromList(todo);
+    const todos = this.todos();
+    const index = todos.findIndex(t => t.id === todo.id);
+
+    if (index !== -1) {
+      this.lastDeletedTodoSignal.set(todo);
+      this.lastDeletedTodoIndexSignal.set(index);
+      await this.todosRepository.deleteTodo(todo.id);
+      this.removeTodoFromList(todo);
+      this.showUndoToast(todo);
+    }
   }
 
   async undoDeleteTodo() {
     const todo = this.lastDeletedTodo();
-    if (todo) {
-      await this.todosRepository.saveTodo(todo);
+    const index = this.lastDeletedTodoIndexSignal();
+
+    if (todo && index !== null) {
+      await this.todosRepository.saveTodoAt(todo, index);
       this.lastDeletedTodoSignal.set(null);
-      this.addTodoToList(todo);
+      this.lastDeletedTodoIndexSignal.set(null);
+      this.addTodoToListAt(todo, index);
     }
   }
 
@@ -79,6 +96,24 @@ export class TodosOverviewService {
     await this.loadTodos();
   }
 
+  private async showUndoToast(deletedTodo: Todo) {
+    const toast = await this.toastController.create({
+      message: await this.translateService.get('TODOS_OVERVIEW.TODO_DELETED_MESSAGE', { title: deletedTodo.title }).toPromise(),
+      duration: 3000,
+      position: 'bottom',
+      buttons: [
+        {
+          side: 'end',
+          text: await this.translateService.get('TODOS_OVERVIEW.UNDO_DELETION_BUTTON').toPromise(),
+          handler: () => {
+            this.undoDeleteTodo();
+          }
+        }
+      ]
+    });
+    await toast.present();
+  }
+
   private updateTodoInList(updatedTodo: Todo) {
     this.todosSignal.update(todos =>
       todos.map(todo => todo.id === updatedTodo.id ? updatedTodo : todo)
@@ -91,7 +126,14 @@ export class TodosOverviewService {
     );
   }
 
-  private addTodoToList(todoToAdd: Todo) {
-    this.todosSignal.update(todos => [...todos, todoToAdd]);
+  private addTodoToListAt(todoToAdd: Todo, index: number) {
+    this.todosSignal.update(todos => {
+      if (!todos.some(t => t.id === todoToAdd.id)) {
+        const newTodos = [...todos];
+        newTodos.splice(index, 0, todoToAdd);
+        return newTodos;
+      }
+      return todos;
+    });
   }
 }

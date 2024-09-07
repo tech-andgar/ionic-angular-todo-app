@@ -57,6 +57,22 @@ export class LocalStorageTodosApi extends TodosApi {
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
   }
 
+  override async saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
+    const todos = [...this.todoStreamController.value];
+    const todoIndex = todos.findIndex(t => t.id === todo.id);
+
+    if (todoIndex >= 0) {
+      todos[todoIndex] = todo;  // Update existing todo
+    } else if (index !== null) {
+      todos.splice(index, 0, todo);  // Insert at the original index
+    } else {
+      todos.push(todo);  // Add new todo at the end (for new todos)
+    }
+
+    this.todoStreamController.next(todos);
+    localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
+  }
+
   override async deleteTodo(id: string): Promise<void> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === id);
