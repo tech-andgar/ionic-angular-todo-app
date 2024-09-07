@@ -40,8 +40,6 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     this.themeService.initializeTheme();
-
-    // Initialize language
-    this.languageService.init();
+    this.languageService.initializeLanguage();
   }
 }

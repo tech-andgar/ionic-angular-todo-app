@@ -15,5 +15,38 @@
     "ADD": "Agregar Tarea",
     "DELETE": "Eliminar",
     "COMPLETE": "Completar"
+  },
+  "TODOS_OVERVIEW": {
+    "TITLE": "Tareas",
+    "EMPTY_TEXT": "Aún no hay tareas. ¡Añade algunas!",
+    "FILTER": {
+      "TITLE": "Filtro tareas",
+      "ALL": "Todas",
+      "ACTIVE": "Activas",
+      "COMPLETED": "Completadas"
+    },
+    "OPTIONS": {
+      "TITLE": "Opciones Tareas",
+      "TOGGLE_ALL": "Alternar todas",
+      "CLEAR_COMPLETED": "Borrar completadas"
+    },
+    "ERROR": "Ocurrió un error al cargar las tareas"
+  },
+  "STATS": {
+    "TITLE": "Estadísticas",
+    "COMPLETED_TODOS": "Tareas Completadas",
+    "ACTIVE_TODOS": "Tareas Activas",
+    "ERROR": "Ocurrió un error al cargar las estadísticas"
+  },
+  "EDIT_TODO": {
+    "ADD_TITLE": "Añadir Tarea",
+    "EDIT_TITLE": "Editar Tarea",
+    "TITLE_LABEL": "Título",
+    "DESCRIPTION_LABEL": "Descripción",
+    "SAVE_BUTTON": "Guardar",
+    "SAVE_BUTTON_TOOLTIP": "Guardar tarea"
+  },
+  "COMMON": {
+    "CANCEL": "Cancelar"
   }
 }

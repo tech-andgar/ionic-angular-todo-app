@@ -8,7 +8,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'todos',
-        loadComponent: () => import('./features/todos/ui/todos/todos-overview.page').then(m => m.TodosOverviewPage)
+        loadComponent: () => import('./features/todos/ui/todos-overview/todos-overview.page').then(m => m.TodosOverviewPage)
       },
       {
         path: 'stats',
@@ -26,7 +26,11 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'add-todo',
-    loadComponent: () => import('./features/todos/ui/todos/add-todo.page').then(m => m.AddTodoPage)
-  }
+    path: 'edit-todo',
+    loadComponent: () => import('./features/todos/ui/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
+  },
+  {
+    path: 'edit-todo/:id',
+    loadComponent: () => import('./features/todos/ui/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
+  },
 ];

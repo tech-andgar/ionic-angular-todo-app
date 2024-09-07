@@ -15,5 +15,38 @@
     "ADD": "Add Todo",
     "DELETE": "Delete",
     "COMPLETE": "Complete"
+  },
+    "TODOS_OVERVIEW": {
+    "TITLE": "Tasks",
+    "EMPTY_TEXT": "No tasks yet. Add some!",
+    "FILTER": {
+      "TITLE": "Filter Todos",
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "COMPLETED": "Completed"
+    },
+    "OPTIONS": {
+      "TITLE": "Todos Options",
+      "TOGGLE_ALL": "Toggle all",
+      "CLEAR_COMPLETED": "Clear completed"
+    },
+    "ERROR": "An error occurred while loading tasks"
+  },
+  "STATS": {
+    "TITLE": "Statistics",
+    "COMPLETED_TODOS": "Completed Tasks",
+    "ACTIVE_TODOS": "Active Tasks",
+    "ERROR": "An error occurred while loading statistics"
+  },
+  "EDIT_TODO": {
+    "ADD_TITLE": "Add Task",
+    "EDIT_TITLE": "Edit Task",
+    "TITLE_LABEL": "Title",
+    "DESCRIPTION_LABEL": "Description",
+    "SAVE_BUTTON": "Save",
+    "SAVE_BUTTON_TOOLTIP": "Save task"
+  },
+  "COMMON": {
+    "CANCEL": "Cancel"
   }
 }

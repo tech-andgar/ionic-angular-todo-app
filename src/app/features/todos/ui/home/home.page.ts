@@ -26,7 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
       </ion-tab-bar>
     </ion-tabs>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button routerLink="/add-todo">
+      <ion-fab-button routerLink="/edit-todo">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>

@@ -18,10 +18,10 @@ export class LanguageService {
     private translate: TranslateService,
     private storage: Storage
   ) {
-    this.init();
+    this.initializeLanguage();
   }
 
-  async init() {
+  async initializeLanguage() {
     await this.setInitialLanguage();
   }
 
@@ -33,7 +33,7 @@ export class LanguageService {
 
   async getPreferredLanguage(): Promise<Language> {
     if (!this._storage) {
-      await this.init();
+      await this.initializeLanguage();
     }
     const storedLang = await this._storage?.get(this.STORAGE_KEY) as Language | null;
     if (storedLang && this.isLanguageSupported(storedLang)) {
