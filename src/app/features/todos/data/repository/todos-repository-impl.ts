@@ -129,7 +129,7 @@ export class TodosRepositoryImpl implements TodosRepository {
       buttons: [
         {
           side: 'end',
-          text: await lastValueFrom(this.translateService.get('TODOS_OVERVIEW.UNDO_DELETION_BUTTON')),
+          text: await lastValueFrom(this.translateService.get('COMMON.UNDO')),
           handler: () => {
             this.undoDeleteTodo();
           }
