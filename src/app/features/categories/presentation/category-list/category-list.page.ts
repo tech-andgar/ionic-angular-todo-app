@@ -29,7 +29,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
           </ion-button>
         </ion-item>
         <ion-item
-           *ngFor="let category of categoryListService.filteredCategories()"
+          *ngFor="let category of categoryListService.filteredCategories()"
         >
           <ion-label>{{ category.name }}</ion-label>
           <ion-button (click)="editCategory(category)" [attr.aria-label]="'COMMON.EDIT' | translate ">

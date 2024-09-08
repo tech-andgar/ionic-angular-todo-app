@@ -1,7 +1,11 @@
+import { CategoriesRepositoryImpl } from 'src/app/features/categories/data/repository/categories-repository-impl';
+import { Category } from 'src/app/core/domain/model/category.model';
 import { Injectable, signal, computed } from '@angular/core';
-import { Todo } from '../../domain/models/todo.model';
 import { lastValueFrom } from 'rxjs';
+import { ToastController } from '@ionic/angular';
+import { Todo } from '../../../../core/domain/model/todo.model';
 import { TodosRepositoryImpl } from '../../data/repository/todos-repository-impl';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum EditTodoStatus { initial, loading, success, failure }
 
@@ -15,35 +19,44 @@ export class EditTodoService {
   private initialTodoSignal = signal<Todo | null>(null);
   initialTodo = this.initialTodoSignal.asReadonly();
 
-  private titleSignal = signal<string>('');
-  title = this.titleSignal.asReadonly();
+  private title: string = '';
+  private description: string = '';
+  private category: Category | null = null;
 
-  private descriptionSignal = signal<string>('');
-  description = this.descriptionSignal.asReadonly();
-
-  private categoryIdSignal = signal<string>('');
-  categoryId = this.descriptionSignal.asReadonly();
+  categoriesSignal = signal<Category[]>([]);
+  categories = computed(() => this.categoriesSignal());
 
   isNewTodo = computed(() => this.initialTodoSignal() === null);
   isLoadingOrSuccess = computed(() =>
     [EditTodoStatus.loading, EditTodoStatus.success].includes(this.statusSignal())
   );
 
-  constructor(private todosRepository: TodosRepositoryImpl) { }
+  constructor(
+    private todosRepository: TodosRepositoryImpl,
+    private categoriesRepository: CategoriesRepositoryImpl,
+    private toastController: ToastController,
+    private translateService: TranslateService
+  ) {
+    this.categoriesRepository.getCategories().subscribe((data) => {
+      this.categoriesSignal.update(() => data);
+    });
+  }
 
   initializeTodo(todo: Todo | null) {
     this.statusSignal.set(EditTodoStatus.initial);
     this.initialTodoSignal.set(todo);
-    this.titleSignal.set(todo?.title ?? '');
-    this.descriptionSignal.set(todo?.description ?? '');
   }
 
   setTitle(title: string) {
-    this.titleSignal.set(title);
+    this.title = title
   }
 
   setDescription(description: string) {
-    this.descriptionSignal.set(description);
+    this.description = description
+  }
+
+  setCategory(category: Category) {
+    this.category = category
   }
 
   async getTodoById(todoId: string): Promise<Todo> {
@@ -52,17 +65,27 @@ export class EditTodoService {
 
   async submit() {
     this.statusSignal.set(EditTodoStatus.loading);
-    const todo = this.initialTodoSignal() ?? new Todo('',{id: undefined, description: undefined, isCompleted: false, categoryId: undefined});
-    const updatedTodo = todo.copyWith({
-      id: todo.id,
-      title: this.titleSignal(),
-      description: this.descriptionSignal(),
-      isCompleted: todo.isCompleted,
-      categoryId: this.categoryIdSignal()
+    if (!this.title || !this.description || !this.category) {
+      this.statusSignal.set(EditTodoStatus.failure);
+      const toast = await this.toastController.create({
+        message: await lastValueFrom(this.translateService.get('COMMON.MISSING_FIELDS_MESSAGE')),
+        duration: 3000,
+        position: 'bottom',
+        color: 'danger'
+      });
+      await toast.present();
+      return;
+    }
+
+    const todo = Todo.create({
+      id: this.initialTodo()?.id ?? null,
+      title: this.title,
+      description: this.description,
+      category: this.category
     });
 
     try {
-      await this.todosRepository.saveTodo(updatedTodo);
+      await this.todosRepository.saveTodo(todo);
       this.statusSignal.set(EditTodoStatus.success);
     } catch (e) {
       this.statusSignal.set(EditTodoStatus.failure);

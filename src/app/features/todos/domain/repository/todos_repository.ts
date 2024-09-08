@@ -36,7 +36,7 @@ export abstract class TodosRepository {
    * @param {Todo} todo - The todo to save.
    * @returns {Promise<void>} - Resolves when the todo is saved.
    */
-  abstract saveTodo(todo: Todo): Promise<void>;
+  abstract saveTodo(todo: Todo): Promise<boolean>;
 
   /**
    * Saves a todo at a specified index. If a todo with the same ID already exists, it will be replaced.

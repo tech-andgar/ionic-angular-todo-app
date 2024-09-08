@@ -50,7 +50,7 @@ export class CategoryListService {
   async submit(name: string) {
     this.statusSignal.set(CategoryListStatus.loading);
     try {
-      await this.categoriesRepository.saveCategory(new Category(name));
+      await this.categoriesRepository.saveCategory(Category.create({ name: name, id: null }));
       this.statusSignal.set(CategoryListStatus.success);
     } catch (e) {
       this.statusSignal.set(CategoryListStatus.failure);
@@ -59,7 +59,7 @@ export class CategoryListService {
 
   async update(name: string, category: Category) {
     this.statusSignal.set(CategoryListStatus.loading);
-    const updatedCategory = category.copyWith({name: name});
+    const updatedCategory = category.copyWith({ name: name });
     try {
       await this.categoriesRepository.saveCategory(updatedCategory);
       this.statusSignal.set(CategoryListStatus.success);
@@ -69,7 +69,7 @@ export class CategoryListService {
   }
 
 
-  async deleteCategory(category: Category) : Promise<boolean>{
+  async deleteCategory(category: Category): Promise<boolean> {
     this.statusSignal.set(CategoryListStatus.loading);
     const result = await this.categoriesRepository.deleteCategory(category);
     if (result) {

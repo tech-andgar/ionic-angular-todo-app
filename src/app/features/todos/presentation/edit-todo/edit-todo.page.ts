@@ -5,8 +5,8 @@ import { checkmark, trash } from 'ionicons/icons';
 import { EditTodoService, EditTodoStatus } from './edit-todo.service';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonInput } from '@ionic/angular';
-import { NgIf } from '@angular/common';
-import { Todo } from '../../domain/models/todo.model';
+import { NgFor, NgIf } from '@angular/common';
+import { Todo } from '../../../../core/domain/model/todo.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -31,7 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
           #input
           autofocus="true"
           [disabled]="editTodoService.isLoadingOrSuccess()"
-          [value]="editTodoService.title()"
+          [value]="editTodoService.initialTodo()?.title"
           (ionChange)="onTitleChange($event)"
           maxlength="50"
           ></ion-input>
@@ -41,11 +41,27 @@ import { TranslateModule } from '@ngx-translate/core';
           <ion-label position="floating">{{ 'EDIT_TODO.DESCRIPTION_LABEL' | translate }}</ion-label>
           <ion-textarea
           [disabled]="editTodoService.isLoadingOrSuccess()"
-          [value]="editTodoService.description()"
+          [value]="editTodoService.initialTodo()?.description"
           (ionChange)="onDescriptionChange($event)"
           maxlength="300"
           rows="7"
           ></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-select
+            [disabled]="editTodoService.isLoadingOrSuccess()"
+            [value]="editTodoService.initialTodo()?.category"
+            (ionChange)="onCategoryChange($event)"
+            label="{{ 'COMMON.CATEGORY' | translate }}"
+          >
+            <ion-select-option
+              *ngFor="let category of editTodoService.categories()"
+              [value]="category.id"
+            >
+              {{ category.name }}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
 
         <ion-grid>
@@ -84,11 +100,11 @@ import { TranslateModule } from '@ngx-translate/core';
 </ion-content>
 `,
   standalone: true,
-  imports: [IonicModule, FormsModule, TranslateModule, NgIf]
+  imports: [IonicModule, FormsModule, TranslateModule, NgIf, NgFor]
 })
 export class EditTodoPage implements OnInit, AfterViewInit {
   EditTodoStatus = EditTodoStatus;
-  todo: Todo | undefined;
+  todo: Todo | null = null;
 
   constructor(
     public editTodoService: EditTodoService,
@@ -119,6 +135,10 @@ export class EditTodoPage implements OnInit, AfterViewInit {
 
   onDescriptionChange(event: CustomEvent) {
     this.editTodoService.setDescription(event.detail.value);
+  }
+
+  onCategoryChange(event: CustomEvent) {
+    this.editTodoService.setCategory(event.detail.value);
   }
 
   async onDelete() {

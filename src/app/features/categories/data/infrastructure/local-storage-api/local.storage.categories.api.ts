@@ -19,7 +19,12 @@ export class LocalStorageCategoriesApi implements CategoriesApi {
   private init(): void {
     const categoriesJson = localStorage.getItem(LocalStorageCategoriesApi.kCategoriesCollectionKey);
     if (categoriesJson) {
-      const categories: Category[] = JSON.parse(categoriesJson).map((jsonMap: any) => new Category(jsonMap.name, jsonMap.id, jsonMap.active));
+      const categories: Category[] = JSON.parse(categoriesJson)
+        .map((jsonMap: any) => new Category({
+          name: jsonMap.name,
+          id: jsonMap.id,
+          active: jsonMap.active
+        }));
       this.categoryStreamController.next(categories);
     } else {
       this.categoryStreamController.next([]);

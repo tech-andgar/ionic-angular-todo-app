@@ -56,12 +56,14 @@
     "EDIT_TITLE": "Editar categoría"
   },
   "COMMON": {
+    "CATEGORY":  "Categoría",
     "CANCEL": "Cancelar",
     "DELETE": "Eliminar",
     "ADD": "Añadir",
     "EDIT": "Editar",
     "UNDO": "Deshacer",
     "UPDATE": "Actualizar",
-    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación"
+    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación",
+    "MISSING_FIELDS_MESSAGE": "Todos los campos son obligatorios."
   }
 }

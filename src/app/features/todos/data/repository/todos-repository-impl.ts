@@ -52,7 +52,7 @@ export class TodosRepositoryImpl implements TodosRepository {
    *
    * If a todo with the same id already exists, it will be replaced.
    */
-  saveTodo(todo: Todo): Promise<void> {
+  saveTodo(todo: Todo): Promise<boolean> {
     return this.todosApi.saveTodo(todo);
   }
 
@@ -98,7 +98,7 @@ export class TodosRepositoryImpl implements TodosRepository {
     return new Promise<boolean>(async (resolve) => {
       const alert = await this.alertController.create({
         header: await lastValueFrom(this.translateService.get('COMMON.DELETE_CONFIRM_HEADER')),
-        message: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title })),
+        message: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo?.title ?? '' })),
         buttons: [
           {
             text: await lastValueFrom(this.translateService.get('COMMON.CANCEL')),

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { TodosApi } from '../../../domain/infrastructure/todos_api';
 import { Todo } from '../../../../../core/domain/model/todo.model';
 import { TodoNotFoundException } from 'src/app/core/domain/exceptions/exceptions';
@@ -20,7 +20,15 @@ export class LocalStorageTodosApi implements TodosApi {
     const todosJson = localStorage.getItem(LocalStorageTodosApi.kTodosCollectionKey);
     if (todosJson) {
       const todos: Todo[] = JSON.parse(todosJson).map((jsonMap: any) =>
-        new Todo(jsonMap.title, {id: jsonMap.id, description: jsonMap.description, isCompleted: jsonMap.isCompleted, categoryId: jsonMap.categoryId})
+        new Todo(
+          jsonMap.title,
+          {
+            id: jsonMap.id,
+            description: jsonMap.description,
+            isCompleted: jsonMap.isCompleted,
+            category: jsonMap.category
+          }
+        )
       );
       this.todoStreamController.next(todos);
     } else {
@@ -44,7 +52,7 @@ export class LocalStorageTodosApi implements TodosApi {
     });
   }
 
-  async saveTodo(todo: Todo): Promise<void> {
+  async saveTodo(todo: Todo): Promise<boolean> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === todo.id);
     if (todoIndex >= 0) {
@@ -55,6 +63,8 @@ export class LocalStorageTodosApi implements TodosApi {
 
     this.todoStreamController.next(todos);
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
+
+    return (await lastValueFrom(this.getTodo(todo.id))) ? true: false;
   }
 
   async saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {

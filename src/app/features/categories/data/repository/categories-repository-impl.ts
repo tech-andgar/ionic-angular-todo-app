@@ -78,7 +78,7 @@ export class CategoriesRepositoryImpl implements CategoriesRepository {
       if (index !== -1) {
         this.lastDeletedCategorySignal.set(category);
         this.lastDeletedCategoryIndexSignal.set(index);
-        await this.categoriesApi.deleteCategory(category.id);
+        await this.categoriesApi.deleteCategory(category.id!);
         this.removeCategoryFromList(category);
         this.showUndoToast(category);
       }
