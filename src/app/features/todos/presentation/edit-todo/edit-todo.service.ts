@@ -1,7 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Todo } from '../../todosAPI/models/todo';
-import { TodosRepository } from '../../todos_repository/todos_repository';
+import { Todo } from '../../domain/models/todo.model';
 import { lastValueFrom } from 'rxjs';
+import { TodosRepository } from '../../domain/repository/todos_repository';
 
 export enum EditTodoStatus { initial, loading, success, failure }
 

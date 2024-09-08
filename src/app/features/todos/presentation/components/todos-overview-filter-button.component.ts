@@ -5,7 +5,7 @@ import { filter } from 'ionicons/icons';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { TodosOverviewService } from '../todos-overview/todos-overview.service';
-import { TodosViewFilter } from '../../todos_repository/todos_repository';
+import { TodosViewFilter } from '../../data/repository/todos-repository-impl';
 
 @Component({
   selector: 'app-todos-overview-filter-button',

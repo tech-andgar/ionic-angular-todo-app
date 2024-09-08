@@ -1,14 +1,14 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
 import { SettingsDropdownComponent } from "../../../../core/settings/settings-dropdown.component";
-import { Todo } from '../../todosAPI/models/todo';
-import { TodoListItemComponent } from '../component/todo-list-item.component';
-import { TodosOverviewFilterButtonComponent } from '../component/todos-overview-filter-button.component';
-import { TodosOverviewOptionsButtonComponent } from '../component/todos-overview-options-button.component';
+import { Todo } from '../../domain/models/todo.model';
+import { TodoListItemComponent } from '../components/todo-list-item.component';
+import { TodosOverviewFilterButtonComponent } from '../components/todos-overview-filter-button.component';
+import { TodosOverviewOptionsButtonComponent } from '../components/todos-overview-options-button.component';
+import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-todos-overview',

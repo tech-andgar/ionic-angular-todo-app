@@ -62,4 +62,8 @@ export class Todo {
       this.isCompleted === other.isCompleted
     );
   }
+
+  toString(): string {
+    return `Todo{task: ${this.title}, isCompleted: ${this.isCompleted}, description: ${this.description}, id: ${this.id}}`;
+  }
 }

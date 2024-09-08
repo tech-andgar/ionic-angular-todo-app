@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './features/todos/ui/home/home.page';
+import { HomePage } from './features/todos/presentation/home/home.page';
 
 export const routes: Routes = [
   {
@@ -8,15 +8,19 @@ export const routes: Routes = [
     children: [
       {
         path: 'todos',
-        loadComponent: () => import('./features/todos/ui/todos-overview/todos-overview.page').then(m => m.TodosOverviewPage)
+        loadComponent: () => import('./features/todos/presentation/todos-overview/todos-overview.page').then(m => m.TodosOverviewPage)
       },
       {
         path: 'stats',
-        loadComponent: () => import('./features/todos/ui/stats/stats.page').then(m => m.StatsPage)
+        loadComponent: () => import('./features/todos/presentation/stats/stats.page').then(m => m.StatsPage)
       },
       {
         path: 'categories',
-        loadComponent: () => import('./features/task/presentation/components/category-list/category-list.component').then(m => m.CategoryListComponent)
+        loadComponent: () => import('./features/todos/presentation/category-list/category-list.component').then(m => m.CategoryListComponent)
+      },
+      {
+        path: 'edit-todo/:id',
+        loadComponent: () => import('./features/todos/presentation/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
       },
       {
         path: '',
@@ -27,10 +31,6 @@ export const routes: Routes = [
   },
   {
     path: 'edit-todo',
-    loadComponent: () => import('./features/todos/ui/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
-  },
-  {
-    path: 'edit-todo/:id',
-    loadComponent: () => import('./features/todos/ui/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
+    loadComponent: () => import('./features/todos/presentation/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
   },
 ];

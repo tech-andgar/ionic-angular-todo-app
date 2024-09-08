@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Todo } from '../../todosAPI/models/todo';
-import { TodosRepository, TodosViewFilter } from '../../todos_repository/todos_repository';
+import { Todo } from '../../domain/models/todo.model';
+import { TodosRepositoryImpl, TodosViewFilter } from '../../data/repository/todos-repository-impl';
 
 export enum TodosOverviewStatus { initial, loading, success, failure }
 
@@ -22,7 +22,7 @@ export class TodosOverviewService {
     });
   });
 
-  constructor(private todosRepository: TodosRepository) { }
+  constructor(private todosRepository: TodosRepositoryImpl) { }
 
   async loadTodos() {
     this.statusSignal.set(TodosOverviewStatus.loading);

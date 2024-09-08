@@ -2,8 +2,9 @@ import { Injectable, signal } from '@angular/core';
 import { ToastController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Observable } from 'rxjs';
-import { TodosApi } from '../todosAPI/todos_api';
-import { Todo } from '../todosAPI/models/todo';
+import { TodosRepository } from '../../domain/repository/todos_repository';
+import { Todo } from '../../domain/models/todo.model';
+import { TodosApi } from '../../domain/infrastructure/todos_api';
 
 export enum TodosViewFilter { all, activeOnly, completedOnly }
 
@@ -13,7 +14,7 @@ export enum TodosViewFilter { all, activeOnly, completedOnly }
 @Injectable({
   providedIn: 'root'
 })
-export class TodosRepository {
+export class TodosRepositoryImpl implements TodosRepository {
   todosSignal = signal<Todo[]>([]);
   filterSignal = signal<TodosViewFilter>(TodosViewFilter.all);
   lastDeletedTodoSignal = signal<Todo | null>(null);
@@ -27,7 +28,7 @@ export class TodosRepository {
     private alertController: AlertController,
     private toastController: ToastController,
     private translateService: TranslateService
-  ) { }
+  ) {}
 
   /**
    * Provides an Observable of all todos.
@@ -88,7 +89,7 @@ export class TodosRepository {
   }
 
 
-  async confirmDelete(todo: Todo): Promise<boolean> {
+  private async confirmDelete(todo: Todo): Promise<boolean> {
     return new Promise<boolean>(async (resolve) => {
       const alert = await this.alertController.create({
         header: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER')),

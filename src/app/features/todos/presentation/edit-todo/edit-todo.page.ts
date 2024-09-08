@@ -1,13 +1,13 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonicModule, IonInput } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
-import { EditTodoService, EditTodoStatus } from './edit-todo.service';
 import { addIcons } from 'ionicons';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { checkmark, trash } from 'ionicons/icons';
-import { Todo } from '../../todosAPI/models/todo';
+import { EditTodoService, EditTodoStatus } from './edit-todo.service';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, IonInput } from '@ionic/angular';
+import { NgIf } from '@angular/common';
+import { Todo } from '../../domain/models/todo.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-todo',

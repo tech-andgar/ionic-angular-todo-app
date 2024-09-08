@@ -1,16 +1,16 @@
 import { ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
-import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
-import { IonicStorageModule } from '@ionic/storage-angular';
-import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { DataService } from './app/services/data.service';
 import { environment } from './environments/environment';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { DataService } from './app/services/data.service';
-import { TodosApi } from './app/features/todos/todosAPI/todos_api';
-import { LocalStorageTodosApi } from './app/features/todos/local_storage_todos_api/local.storage.todos.api';
-import { TodosRepository } from './app/features/todos/todos_repository/todos_repository';
-import { routes } from './app/app.routes';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { LocalStorageTodosApi } from './app/features/todos/data/infrastructure/local_storage_api/local.storage.todos.api';
+import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { routes } from './app/app.routes';
+import { TodosApi } from './app/features/todos/domain/infrastructure/todos_api';
+import { TodosRepositoryImpl } from './app/features/todos/data/repository/todos-repository-impl';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -47,7 +47,7 @@ export const appConfig: ApplicationConfig = {
     ),
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: TodosApi, useClass: LocalStorageTodosApi },
-    TodosRepository,
+    TodosRepositoryImpl,
     // Storage,
     DataService
   ]

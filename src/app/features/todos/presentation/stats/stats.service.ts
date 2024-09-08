@@ -1,7 +1,6 @@
-
 import { Injectable, signal, computed } from '@angular/core';
-import { Todo } from '../../todosAPI/models/todo';
-import { TodosRepository } from '../../todos_repository/todos_repository';
+import { Todo } from '../../domain/models/todo.model';
+import { TodosRepositoryImpl } from '../../data/repository/todos-repository-impl';
 
 export enum StatsStatus { initial, loading, success, failure }
 
@@ -18,7 +17,7 @@ export class StatsService {
   completedTodos = computed(() => this.todos().filter(todo => todo.isCompleted).length);
   activeTodos = computed(() => this.todos().filter(todo => !todo.isCompleted).length);
 
-  constructor(private todosRepository: TodosRepository) { }
+  constructor(private todosRepository: TodosRepositoryImpl) { }
 
   async loadStats() {
     this.statusSignal.set(StatsStatus.loading);

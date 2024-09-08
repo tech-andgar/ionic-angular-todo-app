@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TodoNotFoundException, TodosApi } from '../todosAPI/todos_api';
-import { Todo } from '../todosAPI/models/todo';
+import { TodoNotFoundException, TodosApi } from '../../../domain/infrastructure/todos_api';
+import { Todo } from '../../../domain/models/todo.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalStorageTodosApi extends TodosApi {
+export class LocalStorageTodosApi implements TodosApi {
   private static readonly kTodosCollectionKey = '__todos_collection_key__';
   private todoStreamController: BehaviorSubject<Todo[]>;
 
   constructor() {
-    super();
     this.todoStreamController = new BehaviorSubject<Todo[]>([]);
     this.init();
   }
@@ -28,11 +27,11 @@ export class LocalStorageTodosApi extends TodosApi {
     }
   }
 
-  override getTodos(): Observable<Todo[]> {
+  getTodos(): Observable<Todo[]> {
     return this.todoStreamController.asObservable();
   }
 
-  override getTodo(todoId: string): Observable<Todo> {
+  getTodo(todoId: string): Observable<Todo> {
     return new Observable<Todo>(subscriber => {
       const todo = this.todoStreamController.value.find(t => t.id === todoId);
       if (todo) {
@@ -44,7 +43,7 @@ export class LocalStorageTodosApi extends TodosApi {
     });
   }
 
-  override async saveTodo(todo: Todo): Promise<void> {
+  async saveTodo(todo: Todo): Promise<void> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === todo.id);
     if (todoIndex >= 0) {
@@ -57,7 +56,7 @@ export class LocalStorageTodosApi extends TodosApi {
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
   }
 
-  override async saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
+  async saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === todo.id);
 
@@ -73,7 +72,7 @@ export class LocalStorageTodosApi extends TodosApi {
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
   }
 
-  override async deleteTodo(id: string): Promise<void> {
+  async deleteTodo(id: string): Promise<void> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === id);
     if (todoIndex === -1) {
@@ -85,7 +84,7 @@ export class LocalStorageTodosApi extends TodosApi {
     }
   }
 
-  override async clearCompleted(): Promise<number> {
+  async clearCompleted(): Promise<number> {
     const todos = [...this.todoStreamController.value];
     const completedTodosAmount = todos.filter(t => t.isCompleted).length;
     const newTodos = todos.filter(t => !t.isCompleted);
@@ -94,7 +93,7 @@ export class LocalStorageTodosApi extends TodosApi {
     return completedTodosAmount;
   }
 
-  override async completeAll(isCompleted: boolean): Promise<number> {
+  async completeAll(isCompleted: boolean): Promise<number> {
     const todos = [...this.todoStreamController.value];
     const changedTodosAmount = todos.filter(t => t.isCompleted !== isCompleted).length;
     const newTodos = todos.map(todo => todo.copyWith({ isCompleted }));
@@ -103,7 +102,7 @@ export class LocalStorageTodosApi extends TodosApi {
     return changedTodosAmount;
   }
 
-  override async close(): Promise<void> {
+  async close(): Promise<void> {
     this.todoStreamController.complete();
   }
 }

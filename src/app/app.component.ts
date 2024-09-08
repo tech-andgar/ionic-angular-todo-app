@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonIcon, IonLabel, IonHeader,IonToolbar,IonTitle,IonContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { listOutline, folderOutline } from 'ionicons/icons';
-import { RouterLinkActive } from '@angular/router';
-import { TodosRepository } from './features/todos/todos_repository/todos_repository';
-import { ThemeService } from './core/theme/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { folderOutline, listOutline } from 'ionicons/icons';
+import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonIcon, IonLabel, IonHeader,IonToolbar,IonTitle,IonContent } from '@ionic/angular/standalone';
 import { LanguageService } from './core/language/language.service';
+import { RouterLinkActive } from '@angular/router';
 import { SettingsDropdownComponent } from "./core/settings/settings-dropdown.component";
+import { ThemeService } from './core/theme/theme.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -31,7 +30,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private todosRepository: TodosRepository,
     private themeService: ThemeService,
     private languageService: LanguageService
   ) {
