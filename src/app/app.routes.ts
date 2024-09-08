@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './features/todos/presentation/home/home.page';
+import { HomePage } from './features/home/presentation/home.page';
 
 export const routes: Routes = [
   {
@@ -12,7 +12,7 @@ export const routes: Routes = [
       },
       {
         path: 'categories',
-        loadComponent: () => import('./features/todos/presentation/category-list/category-list.page').then(m => m.CategoryListPage)
+        loadComponent: () => import('./features/categories/presentation/category-list/category-list.page').then(m => m.CategoryListPage)
       },
       {
         path: '',

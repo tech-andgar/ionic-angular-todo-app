@@ -20,7 +20,7 @@ export class LocalStorageTodosApi implements TodosApi {
     const todosJson = localStorage.getItem(LocalStorageTodosApi.kTodosCollectionKey);
     if (todosJson) {
       const todos: Todo[] = JSON.parse(todosJson).map((jsonMap: any) =>
-        new Todo(jsonMap.title, jsonMap.id, jsonMap.description, jsonMap.isCompleted)
+        new Todo(jsonMap.title, {id: jsonMap.id, description: jsonMap.description, isCompleted: jsonMap.isCompleted, categoryId: jsonMap.categoryId})
       );
       this.todoStreamController.next(todos);
     } else {

@@ -6,18 +6,33 @@ type TodoJson = {
   title: string;
   description: string;
   isCompleted: boolean;
+  categoryId: string;
 };
 
 export class Todo {
+  public readonly id: string;
+  public readonly isCompleted: boolean;
+  public readonly description: string;
+  public readonly categoryId: string;
+
   constructor(
     public readonly title: string,
-    public readonly id: string = uuidv4(),
-    public readonly description: string = '',
-    public readonly isCompleted: boolean = false
-  ) {
-    if (id.length === 0) {
-      throw new Error('id must either be null or not empty');
+    {
+      id,
+      isCompleted = false,
+      description = '',
+      categoryId
+    }: {
+      id: string | undefined;
+      isCompleted: boolean | undefined;
+      description: string | undefined;
+      categoryId: string | undefined;
     }
+  ) {
+    this.id = id ?? uuidv4();
+    this.isCompleted = isCompleted;
+    this.description = description;
+    this.categoryId = categoryId ?? '-1';
   }
 
   copyWith({
@@ -25,21 +40,28 @@ export class Todo {
     title,
     description,
     isCompleted,
+    categoryId,
   }: Partial<TodoJson>): Todo {
     return new Todo(
       title ?? this.title,
-      id ?? this.id,
-      description ?? this.description,
-      isCompleted ?? this.isCompleted
+      {
+        id: id ?? this.id,
+        isCompleted: isCompleted ?? this.isCompleted,
+        description: description ?? this.description,
+        categoryId: categoryId ?? this.categoryId,
+      }
     );
   }
 
   static fromJson(json: TodoJson): Todo {
     return new Todo(
       json.title,
-      json.id,
-      json.description,
-      json.isCompleted
+      {
+        id: json.id,
+        isCompleted: json.isCompleted,
+        description: json.description,
+        categoryId: json.categoryId,
+      }
     );
   }
 
@@ -64,6 +86,6 @@ export class Todo {
   }
 
   toString(): string {
-    return `Todo{task: ${this.title}, isCompleted: ${this.isCompleted}, description: ${this.description}, id: ${this.id}}`;
+    return `Todo{id: ${this.id}, task: ${this.title}, isCompleted: ${this.isCompleted}, description: ${this.description}, categoryId: ${this.categoryId} }`;
   }
 }

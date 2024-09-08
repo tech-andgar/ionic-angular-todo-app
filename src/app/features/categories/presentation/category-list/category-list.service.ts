@@ -1,4 +1,4 @@
-import { CategoriesRepositoryImpl, CategoriesViewFilter } from '../../data/repository/categories-repository-impl';
+import { CategoriesViewFilter, CategoriesRepositoryImpl } from '../../data/repository/categories-repository-impl';
 import { Category } from '../../domain/models/category.model';
 import { Injectable, signal, computed } from '@angular/core';
 

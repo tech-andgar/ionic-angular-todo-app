@@ -10,14 +10,19 @@ export enum EditTodoStatus { initial, loading, success, failure }
 })
 export class EditTodoService {
   private statusSignal = signal<EditTodoStatus>(EditTodoStatus.initial);
-  private initialTodoSignal = signal<Todo | null>(null);
-  private titleSignal = signal<string>('');
-  private descriptionSignal = signal<string>('');
-
   status = this.statusSignal.asReadonly();
+
+  private initialTodoSignal = signal<Todo | null>(null);
   initialTodo = this.initialTodoSignal.asReadonly();
+
+  private titleSignal = signal<string>('');
   title = this.titleSignal.asReadonly();
+
+  private descriptionSignal = signal<string>('');
   description = this.descriptionSignal.asReadonly();
+
+  private categoryIdSignal = signal<string>('');
+  categoryId = this.descriptionSignal.asReadonly();
 
   isNewTodo = computed(() => this.initialTodoSignal() === null);
   isLoadingOrSuccess = computed(() =>
@@ -47,12 +52,13 @@ export class EditTodoService {
 
   async submit() {
     this.statusSignal.set(EditTodoStatus.loading);
-    const todo = this.initialTodoSignal() ?? new Todo('');
+    const todo = this.initialTodoSignal() ?? new Todo('',{id: undefined, description: undefined, isCompleted: false, categoryId: undefined});
     const updatedTodo = todo.copyWith({
       id: todo.id,
       title: this.titleSignal(),
       description: this.descriptionSignal(),
-      isCompleted: todo.isCompleted
+      isCompleted: todo.isCompleted,
+      categoryId: this.categoryIdSignal()
     });
 
     try {

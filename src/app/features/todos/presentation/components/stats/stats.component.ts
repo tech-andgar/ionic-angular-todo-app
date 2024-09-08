@@ -1,15 +1,15 @@
-  import { Component, OnInit } from '@angular/core';
-  import { IonicModule } from '@ionic/angular';
-  import { NgIf } from '@angular/common';
-  import { TranslateModule } from '@ngx-translate/core';
-  import { StatsService, StatsStatus } from './stats.service';
-  import { SettingsDropdownComponent } from "../../../../../core/settings/settings-dropdown.component";
-  import { addIcons } from 'ionicons';
-  import { checkmarkCircleOutline, ellipseOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { checkmarkCircleOutline, ellipseOutline } from 'ionicons/icons';
+import { Component, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+import { NgIf } from '@angular/common';
+import { StatsService, StatsStatus } from './stats.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { SettingsDropdownComponent } from 'src/app/core/settings/settings-dropdown.component';
 
-  @Component({
-    selector: 'app-stats',
-    template: `
+@Component({
+  selector: 'app-stats',
+  template: `
       <div *ngIf="statsService.status() === StatsStatus.loading">
         <ion-spinner></ion-spinner>
       </div>
@@ -44,11 +44,11 @@
   standalone: true,
   imports: [IonicModule, TranslateModule, NgIf, SettingsDropdownComponent]
 })
-export class StatsPage implements OnInit {
+export class StatsComponent implements OnInit {
   StatsStatus = StatsStatus;
 
   constructor(public statsService: StatsService) {
-    addIcons({ellipseOutline, checkmarkCircleOutline});
+    addIcons({ ellipseOutline, checkmarkCircleOutline });
   }
 
   ngOnInit() {

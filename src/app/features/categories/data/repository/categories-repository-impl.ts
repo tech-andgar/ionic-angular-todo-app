@@ -1,10 +1,10 @@
+import { CategoriesApi } from '../../domain/infrastructure/categories_api';
+import { CategoriesRepository } from '../../domain/repository/categories_repository';
+import { Category } from '../../../categories/domain/models/category.model';
 import { Injectable, signal } from '@angular/core';
+import { lastValueFrom, Observable } from 'rxjs';
 import { ToastController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { lastValueFrom, Observable } from 'rxjs';
-import { CategoriesRepository } from '../../domain/repository/categories_repository';
-import { Category } from '../../domain/models/category.model';
-import { CategoriesApi } from '../../domain/infrastructure/categories_api';
 
 export enum CategoriesViewFilter { all, activeOnly, inactiveOnly }
 

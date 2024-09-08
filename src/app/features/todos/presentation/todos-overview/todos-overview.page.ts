@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SettingsDropdownComponent } from "../../../../core/settings/settings-dropdown.component";
+import { StatsComponent } from '../components/stats/stats.component';
 import { Todo } from '../../domain/models/todo.model';
 import { TodoListItemComponent } from '../components/todo-list-item.component';
 import { TodosOverviewFilterButtonComponent } from '../components/todos-overview-filter-button.component';
 import { TodosOverviewOptionsButtonComponent } from '../components/todos-overview-options-button.component';
 import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { StatsPage } from "../components/stats/stats.page";
 
 @Component({
   selector: 'app-todos-overview',
@@ -57,7 +57,7 @@ import { StatsPage } from "../components/stats/stats.page";
     TodosOverviewFilterButtonComponent,
     TodosOverviewOptionsButtonComponent,
     SettingsDropdownComponent,
-    StatsPage
+    StatsComponent
 ]
 })
 export class TodosOverviewPage implements OnInit {
