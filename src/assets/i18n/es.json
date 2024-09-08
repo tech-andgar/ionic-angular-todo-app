@@ -1,10 +1,7 @@
 {
   "HOME": {
     "TITLE": "Inicio",
-    "WELCOME": "¡Bienvenido a nuestra aplicación!",
-    "TASKS": "Tareas",
-    "CATEGORIES": "Categorías",
-    "STATS": "Estadísticas"
+    "WELCOME": "¡Bienvenido a nuestra aplicación!"
   },
   "SETTINGS": {
     "SETTINGS": "Configuración",
@@ -20,7 +17,6 @@
     "TITLE": "Tareas",
     "EMPTY_TEXT": "Aún no hay tareas. ¡Añade algunas!",
     "TODO_DELETED_MESSAGE": "Tarea '{{title}}' eliminada",
-    "UNDO_DELETION_BUTTON": "Deshacer",
     "FILTER": {
       "TITLE": "Filtro tareas",
       "ALL": "Todas",
@@ -50,11 +46,22 @@
   },
   "TODO_LIST_ITEM": {
     "DELETE": "Eliminar Tarea",
-    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación",
     "DELETE_CONFIRM_MESSAGE": "¿Estás seguro de que quieres eliminar la tarea '{{title}}'?"
+  },
+  "CATEGORIES": {
+    "TITLE":  "Categorías",
+    "PLACEHOLDER": "Nueva categoría",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the category '{{name}}'?",
+    "CATEGORY_DELETED_MESSAGE": "Categoría '{{name}}' eliminada",
+    "EDIT_TITLE": "Editar categoría"
   },
   "COMMON": {
     "CANCEL": "Cancelar",
-    "DELETE": "Eliminar"
+    "DELETE": "Eliminar",
+    "ADD": "Añadir",
+    "EDIT": "Editar",
+    "UNDO": "Deshacer",
+    "UPDATE": "Actualizar",
+    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación"
   }
 }

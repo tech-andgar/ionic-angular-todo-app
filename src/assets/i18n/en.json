@@ -1,10 +1,7 @@
 {
   "HOME": {
     "TITLE": "Home",
-    "WELCOME": "Welcome to our app!",
-    "TASKS": "Tasks",
-    "CATEGORIES": "Categories",
-    "STATS": "Stats"
+    "WELCOME": "Welcome to our app!"
   },
   "SETTINGS": {
     "SETTINGS": "Settings",
@@ -16,11 +13,10 @@
     "DELETE": "Delete",
     "COMPLETE": "Complete"
   },
-    "TODOS_OVERVIEW": {
+  "TODOS_OVERVIEW": {
     "TITLE": "Tasks",
     "EMPTY_TEXT": "No tasks yet. Add some!",
     "TODO_DELETED_MESSAGE": "Task '{{title}}' deleted",
-    "UNDO_DELETION_BUTTON": "Undo",
     "FILTER": {
       "TITLE": "Filter Todos",
       "ALL": "All",
@@ -50,11 +46,22 @@
   },
   "TODO_LIST_ITEM": {
     "DELETE": "Delete Task",
-    "DELETE_CONFIRM_HEADER": "Confirm Deletion",
     "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the task '{{title}}'?"
+  },
+  "CATEGORIES": {
+    "TITLE": "Categories",
+    "PLACEHOLDER": "New category",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the category '{{name}}'?",
+    "CATEGORY_DELETED_MESSAGE": "Category '{{name}}' deleted",
+    "EDIT_TITLE": "Edit category"
   },
   "COMMON": {
     "CANCEL": "Cancel",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "ADD": "Add",
+    "EDIT": "Edit",
+    "UNDO": "Undo",
+    "UPDATE": "Update",
+    "DELETE_CONFIRM_HEADER": "Confirm Deletion"
   }
 }

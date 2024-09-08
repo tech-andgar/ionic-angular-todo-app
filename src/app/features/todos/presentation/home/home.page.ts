@@ -13,11 +13,11 @@ import { TranslateModule } from '@ngx-translate/core';
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="todos" routerLink="/todos" routerLinkActive="tab-selected">
           <ion-icon name="list-outline"></ion-icon>
-          <ion-label>{{ "HOME.TASKS" | translate }}</ion-label>
+          <ion-label>{{ "TODOS_OVERVIEW.TITLE" | translate }}</ion-label>
         </ion-tab-button>
         <ion-tab-button tab="categories" routerLink="/categories" routerLinkActive="tab-selected">
           <ion-icon name="folder-outline"></ion-icon>
-          <ion-label>{{ "HOME.CATEGORIES" | translate }}</ion-label>
+          <ion-label>{{ "CATEGORIES.TITLE" | translate }}</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
