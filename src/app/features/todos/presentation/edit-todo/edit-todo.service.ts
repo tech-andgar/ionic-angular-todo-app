@@ -45,6 +45,11 @@ export class EditTodoService {
   initializeTodo(todo: Todo | null) {
     this.statusSignal.set(EditTodoStatus.initial);
     this.initialTodoSignal.set(todo);
+    if (todo) {
+      this.category = todo.category;
+      this.description = todo.description;
+      this.title = todo.title;
+    }
   }
 
   setTitle(title: string) {
