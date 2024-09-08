@@ -2,7 +2,7 @@ import { CategoriesViewFilter, CategoriesRepositoryImpl } from '../../data/repos
 import { Category } from 'src/app/core/domain/model/category.model';
 import { Injectable, signal, computed } from '@angular/core';
 
-export enum CategoryListStatus { initial, loading, success, failure }
+export const enum CategoryListStatus { initial, loading, success, failure }
 
 @Injectable({
   providedIn: 'root'

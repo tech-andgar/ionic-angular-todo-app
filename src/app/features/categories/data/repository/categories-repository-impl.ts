@@ -6,7 +6,7 @@ import { lastValueFrom, Observable } from 'rxjs';
 import { ToastController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-export enum CategoriesViewFilter { all, activeOnly, inactiveOnly }
+export const enum CategoriesViewFilter { all, activeOnly, inactiveOnly }
 
 /**
  * A repository that handles `category` related requests.

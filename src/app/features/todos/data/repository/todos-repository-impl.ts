@@ -6,7 +6,7 @@ import { TodosRepository } from '../../domain/repository/todos_repository';
 import { Todo } from '../../../../core/domain/model/todo.model';
 import { TodosApi } from '../../domain/infrastructure/todos_api';
 
-export enum TodosViewFilter { all, activeOnly, completedOnly }
+export const enum TodosViewFilter { all, activeOnly, completedOnly }
 
 /**
  * A repository that handles `todo` related requests.
