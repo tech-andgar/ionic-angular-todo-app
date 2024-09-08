@@ -9,6 +9,7 @@ import { TodosOverviewFilterButtonComponent } from '../components/todos-overview
 import { TodosOverviewOptionsButtonComponent } from '../components/todos-overview-options-button.component';
 import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { StatsPage } from "../stats/stats.page";
 
 @Component({
   selector: 'app-todos-overview',
@@ -24,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
+      <app-stats></app-stats>
       <ng-container *ngIf="todosService.todos().length === 0">
         <div *ngIf="todosService.status() === TodosOverviewStatus.loading" class="center">
           <ion-spinner></ion-spinner>
@@ -54,8 +56,9 @@ import { TranslateModule } from '@ngx-translate/core';
     TodoListItemComponent,
     TodosOverviewFilterButtonComponent,
     TodosOverviewOptionsButtonComponent,
-    SettingsDropdownComponent
-  ]
+    SettingsDropdownComponent,
+    StatsPage
+]
 })
 export class TodosOverviewPage implements OnInit {
   TodosOverviewStatus = TodosOverviewStatus;

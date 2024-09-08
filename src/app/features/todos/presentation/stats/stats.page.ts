@@ -10,39 +10,36 @@
   @Component({
     selector: 'app-stats',
     template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>{{ 'STATS.TITLE' | translate }}</ion-title>
-        <app-settings-dropdown slot="end"></app-settings-dropdown>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="ion-padding">
-      <ng-container *ngIf="statsService.status() === StatsStatus.loading">
+      <div *ngIf="statsService.status() === StatsStatus.loading">
         <ion-spinner></ion-spinner>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="statsService.status() === StatsStatus.success">
-        <ion-list>
-          <ion-item>
-            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-            <ion-label>{{ 'STATS.COMPLETED_TODOS' | translate }}</ion-label>
-            <ion-note slot="end">{{ statsService.completedTodos() }}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="ellipse-outline" slot="start"></ion-icon>
-            <ion-label>{{ 'STATS.ACTIVE_TODOS' | translate }}</ion-label>
-            <ion-note slot="end">{{ statsService.activeTodos() }}</ion-note>
-          </ion-item>
-        </ion-list>
-      </ng-container>
+      <div *ngIf="statsService.status() === StatsStatus.success">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item >
+                <ion-icon name="ellipse-outline" slot="start"></ion-icon>
+                <ion-label>{{ 'STATS.ACTIVE_TODOS' | translate }}</ion-label>
+                <ion-note slot="end">{{ statsService.activeTodos() }}</ion-note>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                <ion-label>{{ 'STATS.COMPLETED_TODOS' | translate }}</ion-label>
+                <ion-note slot="end">{{ statsService.completedTodos() }}</ion-note>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
 
-      <ng-container *ngIf="statsService.status() === StatsStatus.failure">
+      <div *ngIf="statsService.status() === StatsStatus.failure">
         <ion-text color="danger">
           <p>{{ 'STATS.ERROR' | translate }}</p>
         </ion-text>
-      </ng-container>
-    </ion-content>
+      </div>
   `,
   standalone: true,
   imports: [IonicModule, TranslateModule, NgIf, SettingsDropdownComponent]

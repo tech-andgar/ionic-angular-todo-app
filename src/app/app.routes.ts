@@ -11,16 +11,8 @@ export const routes: Routes = [
         loadComponent: () => import('./features/todos/presentation/todos-overview/todos-overview.page').then(m => m.TodosOverviewPage)
       },
       {
-        path: 'stats',
-        loadComponent: () => import('./features/todos/presentation/stats/stats.page').then(m => m.StatsPage)
-      },
-      {
         path: 'categories',
         loadComponent: () => import('./features/todos/presentation/category-list/category-list.component').then(m => m.CategoryListComponent)
-      },
-      {
-        path: 'edit-todo/:id',
-        loadComponent: () => import('./features/todos/presentation/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
       },
       {
         path: '',
@@ -31,6 +23,10 @@ export const routes: Routes = [
   },
   {
     path: 'edit-todo',
+    loadComponent: () => import('./features/todos/presentation/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
+  },
+  {
+    path: 'edit-todo/:id',
     loadComponent: () => import('./features/todos/presentation/edit-todo/edit-todo.page').then(m => m.EditTodoPage)
   },
 ];

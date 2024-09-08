@@ -19,10 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
           <ion-icon name="folder-outline"></ion-icon>
           <ion-label>{{ "HOME.CATEGORIES" | translate }}</ion-label>
         </ion-tab-button>
-        <ion-tab-button tab="stats" routerLink="/stats" routerLinkActive="tab-selected">
-          <ion-icon name="stats-chart-outline"></ion-icon>
-          <ion-label>{{ "HOME.STATS" | translate }}</ion-label>
-        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
