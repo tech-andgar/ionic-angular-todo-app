@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TodoNotFoundException, TodosApi } from '../../../domain/infrastructure/todos_api';
+import { TodosApi } from '../../../domain/infrastructure/todos_api';
 import { Todo } from '../../../domain/models/todo.model';
+import { TodoNotFoundException } from '../../../domain/exceptions/exceptions';
 
 @Injectable({
   providedIn: 'root'

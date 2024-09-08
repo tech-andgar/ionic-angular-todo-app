@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { JsonMap } from './json_map';
+import { JsonMap } from '../../../../core/model/json_map';
 
 type TodoJson = {
   id: string;

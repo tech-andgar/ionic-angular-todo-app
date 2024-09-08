@@ -30,6 +30,12 @@ export class TodosRepositoryImpl implements TodosRepository {
     private translateService: TranslateService
   ) {}
 
+  async loadTodos() {
+    this.getTodos().subscribe(todos => {
+      this.todosSignal.set(todos);
+    });
+  }
+
   /**
    * Provides an Observable of all todos.
    */
@@ -53,7 +59,7 @@ export class TodosRepositoryImpl implements TodosRepository {
   /**
    * Saves a todo with the position index
    *
-* If a todo with the same id already exists, it will be replaced.
+   * If a todo with the same id already exists, it will be replaced.
    */
   saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
     return this.todosApi.saveTodoAt(todo, index);
@@ -88,11 +94,10 @@ export class TodosRepositoryImpl implements TodosRepository {
     );
   }
 
-
   private async confirmDelete(todo: Todo): Promise<boolean> {
     return new Promise<boolean>(async (resolve) => {
       const alert = await this.alertController.create({
-        header: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_HEADER')),
+        header: await lastValueFrom(this.translateService.get('COMMON.DELETE_CONFIRM_HEADER')),
         message: await lastValueFrom(this.translateService.get('TODO_LIST_ITEM.DELETE_CONFIRM_MESSAGE', { title: todo.title })),
         buttons: [
           {
@@ -157,7 +162,6 @@ export class TodosRepositoryImpl implements TodosRepository {
     });
   }
 
-
   /**
    * Deletes all completed todos.
    *
@@ -176,13 +180,6 @@ export class TodosRepositoryImpl implements TodosRepository {
     return this.todosApi.completeAll(isCompleted);
   }
 
-  async loadTodos() {
-    this.getTodos().subscribe(todos => {
-      this.todosSignal.set(todos);
-    });
-  }
-
-
   setFilter(filter: TodosViewFilter) {
     this.filterSignal.set(filter);
   }
@@ -198,7 +195,6 @@ export class TodosRepositoryImpl implements TodosRepository {
     await this.saveTodo(newTodo);
     this.updateTodoInList(newTodo);
   }
-
 
   private updateTodoInList(updatedTodo: Todo) {
     this.todosSignal.update(todos =>
