@@ -48,7 +48,11 @@ export class LanguageService {
   async setLanguage(lang: Language) {
     if (this.isLanguageSupported(lang)) {
       await this._storage?.set(this.kStorageKey, lang);
-      this.translate.use(lang);
+      // Use the TranslateService to load the language file
+      this.translate.use(lang).subscribe(
+        () => console.log(`Successfully loaded language: ${lang}`),
+        error => console.error(`Error loading language ${lang}:`, error)
+      );
     } else {
       console.warn(`Language ${lang} is not supported. Falling back to English.`);
       await this._storage?.set(this.kStorageKey, defaultLanguage);

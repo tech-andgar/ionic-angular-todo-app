@@ -16,12 +16,19 @@ import { routes } from './app/app.routes';
 import { TodosApi } from './app/features/todos/domain/infrastructure/todos_api';
 import { TodosRepository } from './app/features/todos/domain/repository/todos_repository';
 import { TodosRepositoryImpl } from './app/features/todos/data/repository/todos-repository-impl';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
+export class LazyTranslateLoader implements TranslateLoader {
+  constructor(private http: HttpClient) {}
+
+  getTranslation(lang: string): Observable<any> {
+    return this.http.get(`/assets/i18n/${lang}.json`);
+  }
+}
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new LazyTranslateLoader(http);
 }
 
 class AppErrorHandler implements ErrorHandler {
