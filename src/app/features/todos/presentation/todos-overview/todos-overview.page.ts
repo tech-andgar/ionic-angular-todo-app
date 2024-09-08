@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { SettingsDropdownComponent } from "../../../../core/settings/settings-dropdown.component";
 import { StatsComponent } from '../components/stats/stats.component';
 import { Todo } from '../../../../core/domain/model/todo.model';
-import { TodoListItemComponent } from '../components/todo-list-item.component';
+import { TodoListItemComponent } from '../components/todo-list-item/todo-list-item.component';
 import { TodosOverviewFilterButtonComponent } from '../components/todos-overview-filter-button.component';
 import { TodosOverviewOptionsButtonComponent } from '../components/todos-overview-options-button.component';
 import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
