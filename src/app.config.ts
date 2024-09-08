@@ -13,6 +13,9 @@ import { TodosApi } from './app/features/todos/domain/infrastructure/todos_api';
 import { TodosRepositoryImpl } from './app/features/todos/data/repository/todos-repository-impl';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { LocalStorageCategoriesApi } from './app/features/todos/data/infrastructure/local_storage_api/local.storage.categories.api';
+import { CategoriesApi } from './app/features/todos/domain/infrastructure/categories_api';
+import { TodosRepository } from './app/features/todos/domain/repository/todos_repository';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +50,8 @@ export const appConfig: ApplicationConfig = {
     ),
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: TodosApi, useClass: LocalStorageTodosApi },
-    TodosRepositoryImpl,
+    { provide: CategoriesApi, useClass: LocalStorageCategoriesApi },
+    { provide: TodosRepository, useClass: TodosRepositoryImpl },
     // Storage,
     DataService
   ]
