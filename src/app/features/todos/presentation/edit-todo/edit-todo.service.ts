@@ -1,7 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Todo } from '../../domain/models/todo.model';
 import { lastValueFrom } from 'rxjs';
-import { TodosRepository } from '../../domain/repository/todos_repository';
+import { TodosRepositoryImpl } from '../../data/repository/todos-repository-impl';
 
 export enum EditTodoStatus { initial, loading, success, failure }
 
@@ -24,7 +24,7 @@ export class EditTodoService {
     [EditTodoStatus.loading, EditTodoStatus.success].includes(this.statusSignal())
   );
 
-  constructor(private todosRepository: TodosRepository) { }
+  constructor(private todosRepository: TodosRepositoryImpl) { }
 
   initializeTodo(todo: Todo | null) {
     this.statusSignal.set(EditTodoStatus.initial);
@@ -63,10 +63,14 @@ export class EditTodoService {
     }
   }
 
-  async deleteTodo(todo: Todo): Promise<boolean>{
+  async deleteTodo(todo: Todo): Promise<boolean> {
     this.statusSignal.set(EditTodoStatus.loading);
-    const result = this.todosRepository.deleteTodo(todo);
-    this.statusSignal.set(EditTodoStatus.success);
+    const result = await this.todosRepository.deleteTodo(todo);
+    if (result) {
+      this.statusSignal.set(EditTodoStatus.success);
+    } else {
+      this.statusSignal.set(EditTodoStatus.initial);
+    }
     return result;
   }
 }

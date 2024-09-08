@@ -9,7 +9,7 @@ import { TodosOverviewFilterButtonComponent } from '../components/todos-overview
 import { TodosOverviewOptionsButtonComponent } from '../components/todos-overview-options-button.component';
 import { TodosOverviewService, TodosOverviewStatus } from './todos-overview.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { StatsPage } from "../stats/stats.page";
+import { StatsPage } from "../components/stats/stats.page";
 
 @Component({
   selector: 'app-todos-overview',

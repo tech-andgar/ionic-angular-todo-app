@@ -3,7 +3,7 @@
   import { NgIf } from '@angular/common';
   import { TranslateModule } from '@ngx-translate/core';
   import { StatsService, StatsStatus } from './stats.service';
-  import { SettingsDropdownComponent } from "../../../../core/settings/settings-dropdown.component";
+  import { SettingsDropdownComponent } from "../../../../../core/settings/settings-dropdown.component";
   import { addIcons } from 'ionicons';
   import { checkmarkCircleOutline, ellipseOutline } from 'ionicons/icons';
 
