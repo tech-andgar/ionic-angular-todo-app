@@ -3,7 +3,7 @@ import { ToastController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { TodosRepository } from '../../domain/repository/todos_repository';
-import { Todo } from '../../domain/models/todo.model';
+import { Todo } from '../../../../core/domain/model/todo.model';
 import { TodosApi } from '../../domain/infrastructure/todos_api';
 
 export enum TodosViewFilter { all, activeOnly, completedOnly }

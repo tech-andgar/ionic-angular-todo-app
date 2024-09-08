@@ -1,6 +1,6 @@
 import { CategoriesApi } from '../../domain/infrastructure/categories_api';
 import { CategoriesRepository } from '../../domain/repository/categories_repository';
-import { Category } from '../../../categories/domain/models/category.model';
+import { Category } from 'src/app/core/domain/model/category.model';
 import { Injectable, signal } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { ToastController, AlertController } from '@ionic/angular';

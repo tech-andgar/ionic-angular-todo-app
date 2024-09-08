@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Todo } from '../../../domain/models/todo.model';
+import { Todo } from '../../../../../core/domain/model/todo.model';
 import { TodosRepositoryImpl } from '../../../data/repository/todos-repository-impl';
 
 export enum StatsStatus { initial, loading, success, failure }

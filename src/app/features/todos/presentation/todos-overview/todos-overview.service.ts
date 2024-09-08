@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Todo } from '../../domain/models/todo.model';
+import { Todo } from '../../../../core/domain/model/todo.model';
 import { TodosRepositoryImpl, TodosViewFilter } from '../../data/repository/todos-repository-impl';
 
 export enum TodosOverviewStatus { initial, loading, success, failure }

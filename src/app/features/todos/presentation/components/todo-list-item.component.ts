@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Todo } from '../../domain/models/todo.model';
+import { Todo } from '../../../../core/domain/model/todo.model';
 import { addIcons } from 'ionicons';
 import { chevronForward, trash } from 'ionicons/icons';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from '../models/category.model';
+import { Category } from 'src/app/core/domain/model/category.model';
 
 /**
  * A repository that handles `category` related operations, such as

@@ -1,5 +1,5 @@
 import { CategoriesViewFilter, CategoriesRepositoryImpl } from '../../data/repository/categories-repository-impl';
-import { Category } from '../../domain/models/category.model';
+import { Category } from 'src/app/core/domain/model/category.model';
 import { Injectable, signal, computed } from '@angular/core';
 
 export enum CategoryListStatus { initial, loading, success, failure }

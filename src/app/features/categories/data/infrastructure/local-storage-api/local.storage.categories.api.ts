@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Category } from '../../../domain/models/category.model';
-import { CategoryNotFoundException } from '../../../domain/exceptions/exceptions';
+import { Category } from 'src/app/core/domain/model/category.model';
+import { CategoryNotFoundException } from '../../../../../core/domain/exceptions/exceptions';
 import { CategoriesApi } from '../../../domain/infrastructure/categories_api';
 
 @Injectable({

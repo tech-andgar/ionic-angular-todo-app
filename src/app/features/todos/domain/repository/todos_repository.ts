@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Todo } from '../models/todo.model';
+import { Todo } from '../../../../core/domain/model/todo.model';
 
 /**
  * A repository that handles `todo` related operations, such as

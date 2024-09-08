@@ -1,6 +1,6 @@
 import { addIcons } from 'ionicons';
 import { AlertController } from '@ionic/angular';
-import { Category } from '../../domain/models/category.model';
+import { Category } from 'src/app/core/domain/model/category.model';
 import { CategoryListService } from './category-list.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -28,7 +28,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </ion-item>
-        <!-- *ngFor="let category of categories$ | async" -->
         <ion-item
            *ngFor="let category of categoryListService.filteredCategories()"
         >
