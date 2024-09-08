@@ -8,19 +8,9 @@ export enum TodosOverviewStatus { initial, loading, success, failure }
 export class TodosOverviewService {
   private statusSignal = signal<TodosOverviewStatus>(TodosOverviewStatus.initial);
   status = this.statusSignal.asReadonly();
-
   todos = this.todosRepository.todosSignal.asReadonly();
-  filter = this.todosRepository.filterSignal.asReadonly();
-
-  filteredTodos = computed(() => {
-    return this.todosRepository.todos().filter(todo => {
-      switch (this.filter()) {
-        case TodosViewFilter.all: return true;
-        case TodosViewFilter.activeOnly: return !todo.isCompleted;
-        case TodosViewFilter.completedOnly: return todo.isCompleted;
-      }
-    });
-  });
+  selectedCategory = this.todosRepository.selectedCategory;
+  filteredTodos = this.todosRepository.filteredTodos;
 
   constructor(private todosRepository: TodosRepositoryImpl) { }
 
@@ -48,6 +38,12 @@ export class TodosOverviewService {
   setFilter(filter: TodosViewFilter) {
     this.statusSignal.set(TodosOverviewStatus.loading);
     this.todosRepository.setFilter(filter);
+    this.statusSignal.set(TodosOverviewStatus.success);
+  }
+
+  setSelectedCategory(categoryId: string | null) {
+    this.statusSignal.set(TodosOverviewStatus.loading);
+    this.todosRepository.setSelectedCategory(categoryId);
     this.statusSignal.set(TodosOverviewStatus.success);
   }
 

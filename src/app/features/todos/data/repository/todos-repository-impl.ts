@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { ToastController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Observable } from 'rxjs';
@@ -16,19 +16,47 @@ export const enum TodosViewFilter { all, activeOnly, completedOnly }
 })
 export class TodosRepositoryImpl implements TodosRepository {
   todosSignal = signal<Todo[]>([]);
+  todos = this.todosSignal.asReadonly();
+
   filterSignal = signal<TodosViewFilter>(TodosViewFilter.all);
+  filter = this.filterSignal.asReadonly();
+
   lastDeletedTodoSignal = signal<Todo | null>(null);
+  lastDeletedTodo = this.lastDeletedTodoSignal.asReadonly();
+
   lastDeletedTodoIndexSignal = signal<number | null>(null);
 
-  todos = this.todosSignal.asReadonly();
-  lastDeletedTodo = this.lastDeletedTodoSignal.asReadonly();
+  private selectedCategorySignal = signal<string | null>(null);
+  selectedCategory = this.selectedCategorySignal.asReadonly();
+
+  setSelectedCategory(categoryId: string | null) {
+    this.selectedCategorySignal.set(categoryId);
+  }
+
+  filteredTodos = computed(() => {
+    return this.todos().filter(todo => {
+      const matchesFilter = this.filter() === TodosViewFilter.all ||
+        (this.filter() === TodosViewFilter.activeOnly && !todo.isCompleted) ||
+        (this.filter() === TodosViewFilter.completedOnly && todo.isCompleted);
+
+      const matchesCategory = this.selectedCategory() === null || this.getCategoryId(todo) === this.selectedCategory();
+
+      return matchesFilter && matchesCategory;
+    });
+  });
+
+  private getCategoryId(todo: Todo): string | undefined {
+    return typeof todo.category === 'string'
+      ? todo.category!
+      : todo.category?.id!;
+  }
 
   constructor(
     private todosApi: TodosApi,
     private alertController: AlertController,
     private toastController: ToastController,
     private translateService: TranslateService
-  ) {}
+  ) { }
 
   async loadTodos() {
     this.getTodos().subscribe(todos => {

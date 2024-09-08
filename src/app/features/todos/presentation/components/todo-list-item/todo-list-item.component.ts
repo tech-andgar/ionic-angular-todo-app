@@ -60,5 +60,4 @@ export class TodoListItemComponent implements OnInit {
       ? this.todo.category!
       : this.todo.category?.id!;
   }
-
 }

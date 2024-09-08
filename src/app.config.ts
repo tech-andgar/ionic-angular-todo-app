@@ -18,6 +18,7 @@ import { TodosRepository } from './app/features/todos/domain/repository/todos_re
 import { TodosRepositoryImpl } from './app/features/todos/data/repository/todos-repository-impl';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
 
 export class LazyTranslateLoader implements TranslateLoader {
   constructor(private http: HttpClient) {}

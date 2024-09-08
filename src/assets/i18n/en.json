@@ -21,7 +21,9 @@
       "TITLE": "Filter Todos",
       "ALL": "All",
       "ACTIVE": "Active",
-      "COMPLETED": "Completed"
+      "COMPLETED": "Completed",
+      "BY_CATEGORY": "Filter by Category",
+      "ALL_CATEGORIES": "All Categories"
     },
     "OPTIONS": {
       "TITLE": "Todos Options",

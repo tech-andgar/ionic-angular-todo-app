@@ -21,7 +21,9 @@
       "TITLE": "Filtro tareas",
       "ALL": "Todas",
       "ACTIVE": "Activas",
-      "COMPLETED": "Completadas"
+      "COMPLETED": "Completadas",
+      "BY_CATEGORY": "Filtrar por Categoría",
+      "ALL_CATEGORIES": "Todas las Categorías"
     },
     "OPTIONS": {
       "TITLE": "Opciones Tareas",

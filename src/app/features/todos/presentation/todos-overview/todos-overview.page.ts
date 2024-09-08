@@ -1,4 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { CategoryFilterComponent } from "../components/category-filter.component";
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -26,6 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     </ion-header>
     <ion-content class="ion-padding">
       <app-stats></app-stats>
+      <app-category-filter></app-category-filter>
       <ng-container *ngIf="todosService.todos().length === 0">
         <div *ngIf="todosService.status() === TodosOverviewStatus.loading" class="center">
           <ion-spinner></ion-spinner>
@@ -57,7 +59,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TodosOverviewFilterButtonComponent,
     TodosOverviewOptionsButtonComponent,
     SettingsDropdownComponent,
-    StatsComponent
+    StatsComponent,
+    CategoryFilterComponent
 ]
 })
 export class TodosOverviewPage implements OnInit {
