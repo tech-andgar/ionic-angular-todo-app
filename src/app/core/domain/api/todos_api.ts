@@ -1,4 +1,4 @@
-import { Todo } from "../../../../core/domain/model/todo.model";
+import { Todo } from "../model/todo.model";
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 

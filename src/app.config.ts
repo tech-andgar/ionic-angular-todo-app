@@ -10,7 +10,7 @@ import { LocalStorageTodosApi } from './app/features/todos/data/infrastructure/l
 import { Observable } from 'rxjs';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { routes } from './app/app.routes';
-import { TodosApi } from './app/features/todos/domain/infrastructure/todos_api';
+import { TodosApi } from './app/core/domain/api/todos_api';
 import { TodosRepository } from './app/features/todos/domain/repository/todos_repository';
 import { TodosRepositoryImpl } from './app/features/todos/data/repository/todos-repository-impl';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';

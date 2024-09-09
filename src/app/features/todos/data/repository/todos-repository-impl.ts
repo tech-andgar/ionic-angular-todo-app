@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { TodosRepository } from '../../domain/repository/todos_repository';
 import { Todo } from '../../../../core/domain/model/todo.model';
-import { TodosApi } from '../../domain/infrastructure/todos_api';
+import { TodosApi } from '../../../../core/domain/api/todos_api';
 
 export const enum TodosViewFilter { all, activeOnly, completedOnly }
 
