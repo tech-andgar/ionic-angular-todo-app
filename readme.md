@@ -7,6 +7,11 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
 - All CRUD operations can be performed through the Ionic UI.
 - **Note:** To open web links in a new window, use _ctrl+click_ on the link.
 
+![GitHub repo size](https://img.shields.io/github/repo-size/tech-andgar/ionic-angular-todo-app?style=plastic)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/tech-andgar/ionic-angular-todo-app?style=plastic)
+![GitHub Repo stars](https://img.shields.io/github/stars/tech-andgar/ionic-angular-todo-app?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/tech-andgar/ionic-angular-todo-app?style=plastic)
+
 ## :page_facing_up: Table of contents
 
 - [# :zap: Ionic Todo App](#-zap-ionic-todo-app)
@@ -15,10 +20,11 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
   - [:cool: Features](#cool-features)
   - [:camera: Screenshots](#camera-screenshots)
   - [:signal\_strength: Technologies](#signal_strength-technologies)
-  - [Project Structure](#project-structure)
+  - [🌳 Project Structure](#-project-structure)
   - [:floppy\_disk: Setup / Installation](#floppy_disk-setup--installation)
   - [Usage](#usage)
-  - [API Reference](#api-reference)
+  - [Key Components](#key-components)
+  - [📚 API Reference](#-api-reference)
     - [TodosApi](#todosapi)
       - [Todo Retrieval Methods](#todo-retrieval-methods)
       - [Todo Modification Methods](#todo-modification-methods)
@@ -27,7 +33,7 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
       - [Resource Management Methods](#resource-management-methods)
   - [:computer: Code Examples - Implementation Details](#computer-code-examples---implementation-details)
     - [LocalStorageTodosApi](#localstoragetodosapi)
-  - [Testing](#testing)
+  - [🧪 Testing](#-testing)
   - [⚠️ Performance Considerations](#️-performance-considerations)
   - [:clipboard: Status \& To-do list](#clipboard-status--to-do-list)
   - [Contributing](#contributing)
@@ -50,8 +56,14 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
 
 ## :camera: Screenshots
 
-![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo_items.png)
-![todo items shown on ionic frontend and Firestore database](./docs/imgs/todos.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-multilanguage.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-web.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-category.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-filter-category.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-slide.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-options.png)
+![todo items shown on ionic frontend and Firestore database](./docs/imgs/todo-app-undo.png)
+![todo](./docs/video/todo-app.mp4)
 
 ## :signal_strength: Technologies
 
@@ -60,21 +72,107 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
 - [Angular v18](https://angular.io/)
 - [Firebase cloudstore v10](https://firebase.google.com/)
 
-## Project Structure
+## 🌳 Project Structure
 
 ```
-src/
-├── app/
-│   ├── core/
-│   │   ├── domain/
-│   │   │   └── model/
-│   │   │       └── todo.model.ts
-│   ├── data/
-│   │   └── api/
-│   │       ├── todos.api.ts
-│   │       └── local-storage-todos.api.ts
-│   └── ...
-├── ...
+todo/
+├── src
+│   ├── app
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.routes.ts
+│   │   ├── core
+│   │   │   ├── domain
+│   │   │   │   ├── api
+│   │   │   │   │   └── todos_api.ts
+│   │   │   │   ├── exceptions
+│   │   │   │   │   └── exceptions.ts
+│   │   │   │   └── model
+│   │   │   │       ├── category.model.ts
+│   │   │   │       ├── json_map.ts
+│   │   │   │       └── todo.model.ts
+│   │   │   ├── language
+│   │   │   │   ├── language-switcher.component.ts
+│   │   │   │   ├── language.service.ts
+│   │   │   │   └── model
+│   │   │   │       └── language.model.ts
+│   │   │   ├── settings
+│   │   │   │   └── settings-dropdown.component.ts
+│   │   │   └── theme
+│   │   │       ├── theme-switcher.component.ts
+│   │   │       └── theme.service.ts
+│   │   └── features
+│   │       ├── categories
+│   │       │   ├── data
+│   │       │   │   ├── infrastructure
+│   │       │   │   │   └── local-storage-api
+│   │       │   │   │       └── local.storage.categories.api.ts
+│   │       │   │   └── repository
+│   │       │   │       └── categories-repository-impl.ts
+│   │       │   ├── domain
+│   │       │   │   ├── infrastructure
+│   │       │   │   │   └── categories_api.ts
+│   │       │   │   └── repository
+│   │       │   │       └── categories_repository.ts
+│   │       │   └── presentation
+│   │       │       └── category-list
+│   │       │           ├── category-list.page.ts
+│   │       │           └── category-list.service.ts
+│   │       ├── home
+│   │       │   └── presentation
+│   │       │       └── home.page.ts
+│   │       └── todos
+│   │           ├── data
+│   │           │   ├── infrastructure
+│   │           │   │   └── local_storage
+│   │           │   │       └── local.storage.todos.api.ts
+│   │           │   └── repository
+│   │           │       └── todos-repository-impl.ts
+│   │           ├── domain
+│   │           │   └── repository
+│   │           │       └── todos_repository.ts
+│   │           └── presentation
+│   │               ├── components
+│   │               │   ├── category-badge.component.ts
+│   │               │   ├── category-filter.component.ts
+│   │               │   ├── stats
+│   │               │   │   ├── stats.component.ts
+│   │               │   │   └── stats.service.ts
+│   │               │   ├── todo-list-item
+│   │               │   │   ├── todo-list-item.component.ts
+│   │               │   │   └── todo-list-item.service.ts
+│   │               │   ├── todos-overview-filter-button.component.ts
+│   │               │   └── todos-overview-options-button.component.ts
+│   │               ├── edit-todo
+│   │               │   ├── edit-todo.page.ts
+│   │               │   └── edit-todo.service.ts
+│   │               └── todos-overview
+│   │                   ├── todos-overview.page.ts
+│   │                   └── todos-overview.service.ts
+│   ├── app.config.ts
+│   ├── assets
+│   │   ├── i18n
+│   │   │   ├── en.json
+│   │   │   └── es.json
+│   │   ├── icon
+│   │   │   └── favicon.png
+│   │   └── shapes.svg
+│   ├── environments
+│   │   ├── environment.prod.ts
+│   │   └── environment.ts
+│   ├── global.scss
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── test.ts
+│   ├── theme
+│   │   └── variables.scss
+│   └── zone-flags.ts
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
 ```
 
 - `todo.model.ts`: Defines the `Todo` interface
@@ -159,7 +257,14 @@ export class TodoListComponent {
 }
 ```
 
-## API Reference
+## Key Components
+
+1. `core/domain/model/todo.model.ts`: Defines the `Todo` interface.
+2. `core/api/todos.api.ts`: Abstract class defining the API for managing todos.
+3. `data/api/local-storage-todos.api.ts`: Concrete implementation of `TodosApi` using local storage.
+4. `features/todo/`: Contains components, services, and module for the todo feature.
+
+## 📚 API Reference
 
 ### TodosApi
 
@@ -229,7 +334,7 @@ saveTodo(todo: Todo): Observable<boolean> {
 }
 ```
 
-## Testing
+## 🧪 Testing
 
 To run the tests for this project:
 
