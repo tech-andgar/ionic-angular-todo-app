@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Nequi TO-DO',
+  appId: 'me.techandgar.demo.ionic.todo',
+  appName: 'TO-DO',
   webDir: 'www'
 };
 

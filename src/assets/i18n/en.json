@@ -1,0 +1,71 @@
+{
+  "HOME": {
+    "TITLE": "Home",
+    "WELCOME": "Welcome to our app!"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Settings",
+    "DARK_MODE": "Dark Mode",
+    "LANGUAGE": "Language"
+  },
+  "TODOS": {
+    "ADD": "Add Todo",
+    "DELETE": "Delete",
+    "COMPLETE": "Complete"
+  },
+  "TODOS_OVERVIEW": {
+    "TITLE": "Tasks",
+    "EMPTY_TEXT": "No tasks yet. Add some!",
+    "TODO_DELETED_MESSAGE": "Task '{{title}}' deleted",
+    "FILTER": {
+      "TITLE": "Filter Todos",
+      "ALL": "All",
+      "ACTIVE": "Active",
+      "COMPLETED": "Completed",
+      "BY_CATEGORY": "Filter by Category",
+      "ALL_CATEGORIES": "All Categories"
+    },
+    "OPTIONS": {
+      "TITLE": "Todos Options",
+      "TOGGLE_ALL": "Toggle all",
+      "CLEAR_COMPLETED": "Clear completed"
+    },
+    "ERROR": "An error occurred while loading tasks"
+  },
+  "STATS": {
+    "TITLE": "Statistics",
+    "COMPLETED_TODOS": "Completed Tasks",
+    "ACTIVE_TODOS": "Active Tasks",
+    "ERROR": "An error occurred while loading statistics"
+  },
+  "EDIT_TODO": {
+    "ADD_TITLE": "Add Task",
+    "EDIT_TITLE": "Edit Task",
+    "TITLE_LABEL": "Title",
+    "DESCRIPTION_LABEL": "Description",
+    "SAVE_BUTTON": "Save",
+    "SAVE_BUTTON_TOOLTIP": "Save task"
+  },
+  "TODO_LIST_ITEM": {
+    "DELETE": "Delete Task",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the task '{{title}}'?"
+  },
+  "CATEGORIES": {
+    "TITLE": "Categories",
+    "PLACEHOLDER": "New category",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the category '{{name}}'?",
+    "CATEGORY_DELETED_MESSAGE": "Category '{{name}}' deleted",
+    "EDIT_TITLE": "Edit category"
+  },
+  "COMMON": {
+    "CATEGORY":  "Category",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "ADD": "Add",
+    "EDIT": "Edit",
+    "UNDO": "Undo",
+    "UPDATE": "Update",
+    "DELETE_CONFIRM_HEADER": "Confirm Deletion",
+    "MISSING_FIELDS_MESSAGE": "All fields are required."
+  }
+}

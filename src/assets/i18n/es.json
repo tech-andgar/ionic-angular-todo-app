@@ -1,0 +1,71 @@
+{
+  "HOME": {
+    "TITLE": "Inicio",
+    "WELCOME": "¡Bienvenido a nuestra aplicación!"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Configuración",
+    "DARK_MODE": "Modo oscuro",
+    "LANGUAGE": "Idioma"
+  },
+  "TODOS": {
+    "ADD": "Agregar Tarea",
+    "DELETE": "Eliminar",
+    "COMPLETE": "Completar"
+  },
+  "TODOS_OVERVIEW": {
+    "TITLE": "Tareas",
+    "EMPTY_TEXT": "Aún no hay tareas. ¡Añade algunas!",
+    "TODO_DELETED_MESSAGE": "Tarea '{{title}}' eliminada",
+    "FILTER": {
+      "TITLE": "Filtro tareas",
+      "ALL": "Todas",
+      "ACTIVE": "Activas",
+      "COMPLETED": "Completadas",
+      "BY_CATEGORY": "Filtrar por Categoría",
+      "ALL_CATEGORIES": "Todas las Categorías"
+    },
+    "OPTIONS": {
+      "TITLE": "Opciones Tareas",
+      "TOGGLE_ALL": "Alternar todas",
+      "CLEAR_COMPLETED": "Borrar completadas"
+    },
+    "ERROR": "Ocurrió un error al cargar las tareas"
+  },
+  "STATS": {
+    "TITLE": "Estadísticas",
+    "COMPLETED_TODOS": "Tareas Completadas",
+    "ACTIVE_TODOS": "Tareas Activas",
+    "ERROR": "Ocurrió un error al cargar las estadísticas"
+  },
+  "EDIT_TODO": {
+    "ADD_TITLE": "Añadir Tarea",
+    "EDIT_TITLE": "Editar Tarea",
+    "TITLE_LABEL": "Título",
+    "DESCRIPTION_LABEL": "Descripción",
+    "SAVE_BUTTON": "Guardar",
+    "SAVE_BUTTON_TOOLTIP": "Guardar tarea"
+  },
+  "TODO_LIST_ITEM": {
+    "DELETE": "Eliminar Tarea",
+    "DELETE_CONFIRM_MESSAGE": "¿Estás seguro de que quieres eliminar la tarea '{{title}}'?"
+  },
+  "CATEGORIES": {
+    "TITLE":  "Categorías",
+    "PLACEHOLDER": "Nueva categoría",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the category '{{name}}'?",
+    "CATEGORY_DELETED_MESSAGE": "Categoría '{{name}}' eliminada",
+    "EDIT_TITLE": "Editar categoría"
+  },
+  "COMMON": {
+    "CATEGORY":  "Categoría",
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "ADD": "Añadir",
+    "EDIT": "Editar",
+    "UNDO": "Deshacer",
+    "UPDATE": "Actualizar",
+    "DELETE_CONFIRM_HEADER": "Confirmar Eliminación",
+    "MISSING_FIELDS_MESSAGE": "Todos los campos son obligatorios."
+  }
+}
