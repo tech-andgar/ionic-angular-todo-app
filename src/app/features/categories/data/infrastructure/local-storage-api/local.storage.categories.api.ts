@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { CategoriesApi } from '../../../domain/infrastructure/categories_api';
 import { Category } from 'src/app/core/domain/model/category.model';
 import { CategoryNotFoundException } from '../../../../../core/domain/exceptions/exceptions';
-import { CategoriesApi } from '../../../domain/infrastructure/categories_api';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +47,7 @@ export class LocalStorageCategoriesApi implements CategoriesApi {
     });
   }
 
-  async saveCategory(category: Category): Promise<void> {
+  saveCategory(category: Category): Observable<boolean> {
     const categories = [...this.categoryStreamController.value];
 
     const categoryIndex = categories.findIndex(t => t.id === category.id);
@@ -59,9 +59,11 @@ export class LocalStorageCategoriesApi implements CategoriesApi {
 
     localStorage.setItem(LocalStorageCategoriesApi.kCategoriesCollectionKey, JSON.stringify(categories));
     this.categoryStreamController.next(categories);
+
+    return this.getCategory(category.id!).pipe(map(category => category ? true: false));
   }
 
-  async saveCategoryAt(category: Category, index: number | null = null): Promise<void> {
+  saveCategoryAt(category: Category, index: number | null = null): Observable<boolean> {
     const categories = [...this.categoryStreamController.value];
     const categoryIndex = categories.findIndex(t => t.id === category.id);
 
@@ -75,9 +77,11 @@ export class LocalStorageCategoriesApi implements CategoriesApi {
 
     this.categoryStreamController.next(categories);
     localStorage.setItem(LocalStorageCategoriesApi.kCategoriesCollectionKey, JSON.stringify(categories));
+    return this.getCategory(category.id!).pipe(map(category => category ? true: false));
+
   }
 
-  async deleteCategory(id: string): Promise<void> {
+  deleteCategory(id: string): Observable<boolean> {
     const categories = [...this.categoryStreamController.value];
     const categoryIndex = categories.findIndex(t => t.id === id);
     if (categoryIndex === -1) {
@@ -87,9 +91,11 @@ export class LocalStorageCategoriesApi implements CategoriesApi {
       this.categoryStreamController.next(categories);
       localStorage.setItem(LocalStorageCategoriesApi.kCategoriesCollectionKey, JSON.stringify(categories));
     }
+    return this.getCategory(id).pipe(map(category => category ? false  : true));
   }
 
-  async close(): Promise<void> {
+  close(): Observable<void> {
     this.categoryStreamController.complete();
+    return of(undefined);
   }
 }

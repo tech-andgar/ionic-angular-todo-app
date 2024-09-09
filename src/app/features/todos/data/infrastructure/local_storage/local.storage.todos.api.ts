@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, map, Observable, of } from 'rxjs';
 import { TodosApi } from '../../../domain/infrastructure/todos_api';
 import { Todo } from '../../../../../core/domain/model/todo.model';
 import { TodoNotFoundException } from 'src/app/core/domain/exceptions/exceptions';
@@ -52,7 +52,7 @@ export class LocalStorageTodosApi implements TodosApi {
     });
   }
 
-  async saveTodo(todo: Todo): Promise<boolean> {
+   saveTodo(todo: Todo): Observable<boolean> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === todo.id);
     if (todoIndex >= 0) {
@@ -64,10 +64,10 @@ export class LocalStorageTodosApi implements TodosApi {
     this.todoStreamController.next(todos);
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
 
-    return (await lastValueFrom(this.getTodo(todo.id))) ? true: false;
+    return this.getTodo(todo.id).pipe(map(todo => todo ? true : false));
   }
 
-  async saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
+   saveTodoAt(todo: Todo, index: number | null = null): Observable<boolean> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === todo.id);
 
@@ -81,9 +81,10 @@ export class LocalStorageTodosApi implements TodosApi {
 
     this.todoStreamController.next(todos);
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
+    return this.getTodo(todo.id).pipe(map(todo => todo ? true : false));
   }
 
-  async deleteTodo(id: string): Promise<void> {
+   deleteTodo(id: string): Observable<boolean> {
     const todos = [...this.todoStreamController.value];
     const todoIndex = todos.findIndex(t => t.id === id);
     if (todoIndex === -1) {
@@ -93,27 +94,30 @@ export class LocalStorageTodosApi implements TodosApi {
       this.todoStreamController.next(todos);
       localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(todos));
     }
+
+    return this.getTodo(id).pipe(map(todo => todo ? false  : true));
   }
 
-  async clearCompleted(): Promise<number> {
+   clearCompleted(): Observable<number> {
     const todos = [...this.todoStreamController.value];
     const completedTodosAmount = todos.filter(t => t.isCompleted).length;
     const newTodos = todos.filter(t => !t.isCompleted);
     this.todoStreamController.next(newTodos);
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(newTodos));
-    return completedTodosAmount;
+    return of(completedTodosAmount);
   }
 
-  async completeAll(isCompleted: boolean): Promise<number> {
+   completeAll(isCompleted: boolean): Observable<number> {
     const todos = [...this.todoStreamController.value];
     const changedTodosAmount = todos.filter(t => t.isCompleted !== isCompleted).length;
     const newTodos = todos.map(todo => todo.copyWith({ isCompleted }));
     this.todoStreamController.next(newTodos);
     localStorage.setItem(LocalStorageTodosApi.kTodosCollectionKey, JSON.stringify(newTodos));
-    return changedTodosAmount;
+    return of(changedTodosAmount);
   }
 
-  async close(): Promise<void> {
+  close(): Observable<void> {
     this.todoStreamController.complete();
+    return of(undefined);
   }
 }

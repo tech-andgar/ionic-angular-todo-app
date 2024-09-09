@@ -52,8 +52,8 @@ export class CategoriesRepositoryImpl implements CategoriesRepository {
    *
    * If a category with the same id already exists, it will be replaced.
    */
-  saveCategory(category: Category): Promise<void> {
-    return this.categoriesApi.saveCategory(category);
+  saveCategory(category: Category): Promise<boolean> {
+    return lastValueFrom(this.categoriesApi.saveCategory(category));
   }
 
   /**
@@ -61,8 +61,8 @@ export class CategoriesRepositoryImpl implements CategoriesRepository {
    *
    * If a category with the same id already exists, it will be replaced.
    */
-  saveCategoryAt(category: Category, index: number | null = null): Promise<void> {
-    return this.categoriesApi.saveCategoryAt(category, index);
+  saveCategoryAt(category: Category, index: number | null = null): Promise<boolean> {
+    return lastValueFrom(this.categoriesApi.saveCategoryAt(category, index));
   }
 
   /**

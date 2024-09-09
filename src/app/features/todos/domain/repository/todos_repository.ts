@@ -34,7 +34,7 @@ export abstract class TodosRepository {
    * Saves a todo. If a todo with the same ID already exists, it will be replaced.
    *
    * @param {Todo} todo - The todo to save.
-   * @returns {Promise<void>} - Resolves when the todo is saved.
+   * @returns {Promise<boolean>} - Resolves when the todo is saved.
    */
   abstract saveTodo(todo: Todo): Promise<boolean>;
 
@@ -43,9 +43,9 @@ export abstract class TodosRepository {
    *
    * @param {Todo} todo - The todo to save.
    * @param {number | null} index - The position to save the todo at, or null to append it.
-   * @returns {Promise<void>} - Resolves when the todo is saved at the specified position.
+   * @returns {Promise<boolean>} - Resolves when the todo is saved at the specified position.
    */
-  abstract saveTodoAt(todo: Todo, index: number | null): Promise<void>;
+  abstract saveTodoAt(todo: Todo, index: number | null): Promise<boolean>;
 
   /**
    * Toggles the completion state of a todo.

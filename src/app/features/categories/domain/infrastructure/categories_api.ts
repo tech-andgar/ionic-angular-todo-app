@@ -33,18 +33,18 @@ export abstract class CategoriesApi {
    * Saves a category. If a category with the same ID already exists, it will be replaced.
    *
    * @param {Category} category - The category to save.
-   * @returns {Promise<void>} - Resolves when the category is saved.
+   * @returns {Observable<boolean>} - Resolves when the category is saved.
    */
-  abstract saveCategory(category: Category): Promise<void>;
+  abstract saveCategory(category: Category): Observable<boolean>;
 
   /**
    * Saves a category at a specified index. If a category with the same ID already exists, it will be replaced.
    *
    * @param {Category} category - The category to save.
    * @param {number | null} index - The position to save the category at, or null to append it.
-   * @returns {Promise<void>} - Resolves when the category is saved at the specified position.
+   * @returns {Observable<boolean>} - Resolves when the category is saved at the specified position.
    */
-  abstract saveCategoryAt(category: Category, index: number | null): Promise<void>;
+  abstract saveCategoryAt(category: Category, index: number | null): Observable<boolean>;
 
   // ========= Category Deletion Methods =========
 
@@ -52,17 +52,17 @@ export abstract class CategoriesApi {
    * Deletes the category with the given ID.
    *
    * @param {string} id - The ID of the category to delete.
-   * @returns {Promise<void>} - Resolves when the category is deleted.
+   * @returns {Observable<boolean>} - Resolves when the category is deleted.
    * @throws {CategoryNotFoundException} - If no category with the given ID exists.
    */
-  abstract deleteCategory(id: string): Promise<void>;
+  abstract deleteCategory(id: string): Observable<boolean>;
 
   // ========= Resource Management Methods =========
 
   /**
    * Closes the API client and frees up any resources.
    *
-   * @returns {Promise<void>} - Resolves when the client is closed.
+   * @returns {Observable<void>} - Resolves when the client is closed.
    */
-  abstract close(): Promise<void>;
+  abstract close(): Observable<void>;
 }

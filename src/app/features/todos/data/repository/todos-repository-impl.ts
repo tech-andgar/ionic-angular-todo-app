@@ -81,7 +81,7 @@ export class TodosRepositoryImpl implements TodosRepository {
    * If a todo with the same id already exists, it will be replaced.
    */
   saveTodo(todo: Todo): Promise<boolean> {
-    return this.todosApi.saveTodo(todo);
+    return lastValueFrom(this.todosApi.saveTodo(todo));
   }
 
   /**
@@ -89,8 +89,8 @@ export class TodosRepositoryImpl implements TodosRepository {
    *
    * If a todo with the same id already exists, it will be replaced.
    */
-  saveTodoAt(todo: Todo, index: number | null = null): Promise<void> {
-    return this.todosApi.saveTodoAt(todo, index);
+  saveTodoAt(todo: Todo, index: number | null = null): Promise<boolean> {
+    return lastValueFrom(this.todosApi.saveTodoAt(todo, index));
   }
 
   /**
@@ -196,7 +196,7 @@ export class TodosRepositoryImpl implements TodosRepository {
    * Returns the number of deleted todos.
    */
   clearCompleted(): Promise<number> {
-    return this.todosApi.clearCompleted();
+    return lastValueFrom(this.todosApi.clearCompleted());
   }
 
   /**
@@ -205,7 +205,7 @@ export class TodosRepositoryImpl implements TodosRepository {
    * Returns the number of updated todos.
    */
   completeAll(isCompleted: boolean): Promise<number> {
-    return this.todosApi.completeAll(isCompleted);
+    return lastValueFrom(this.todosApi.completeAll(isCompleted));
   }
 
   setFilter(filter: TodosViewFilter) {
