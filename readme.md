@@ -68,7 +68,7 @@ This project is a Todo App developed with Ionic, TypeScript, and Angular. It fea
 ## :signal_strength: Technologies
 
 - [Ionic/angular v8](https://ionicframework.com/)
-- [Ionic v7](https://ionicframework.com/)
+- [Ionic v8](https://ionicframework.com/)
 - [Angular v18](https://angular.io/)
 - [Firebase cloudstore v10](https://firebase.google.com/)
 
