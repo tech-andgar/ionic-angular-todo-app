@@ -2,7 +2,6 @@ import { ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/c
 import { CategoriesApi } from './app/features/categories/domain/infrastructure/categories_api';
 import { CategoriesRepository } from './app/features/categories/domain/repository/categories_repository';
 import { CategoriesRepositoryImpl } from './app/features/categories/data/repository/categories-repository-impl';
-import { DataService } from './app/services/data.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -58,7 +57,6 @@ export const appConfig: ApplicationConfig = {
     { provide: TodosRepository, useClass: TodosRepositoryImpl },
     { provide: CategoriesRepository, useClass: CategoriesRepositoryImpl },
     // Storage,
-    DataService
   ]
 };
 
